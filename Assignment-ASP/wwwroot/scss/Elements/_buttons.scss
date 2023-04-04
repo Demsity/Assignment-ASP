@@ -1,0 +1,14 @@
+.__btn-red {
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-color: var(--color-theme-red);
+    border: none;
+    color: var(--color-theme-light);
+    transition: ease-in-out;
+
+    &:hover {
+        background-color: var(--color-theme-dark);
+        
+    }
+}

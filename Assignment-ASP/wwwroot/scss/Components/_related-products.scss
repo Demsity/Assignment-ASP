@@ -1,0 +1,27 @@
+.__related-products-section {
+    margin-top: 2rem;
+    text-align: center;
+
+    @include xxl {
+        text-align: start;
+    }
+
+    .__related-titled {
+        font-size: 24px;
+        font-weight: var(--font-semi-bold);
+    }
+
+    .__related-products-wrapper {
+        display: flex;
+        margin-top: 1rem;
+        gap: 2.8rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @include xxl {
+            flex-direction: row;
+        }
+    }
+}
+

@@ -1,0 +1,172 @@
+.__detail-top-wrapper {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @include xl {
+        flex-direction: row;
+    }
+
+    .__detail-top-img-wrapper {
+
+        img {
+            display: block;
+            background-color: var(--color-gray-2);
+            width: 400px;
+            height: 350px;
+
+            @include md {
+                width: 505px;
+                height: 430px;
+            }
+
+        } 
+
+        .__detail-top-img-small-wrapper {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+
+            img {
+                background-color: var(--color-gray-2);
+                width: 94px;
+                height: 94px;
+
+                @include md {
+                    width: 120px;
+                    height: 120px;
+                }
+
+            }
+        }
+    }
+
+    .__detail-top-info-wrapper {
+        margin-left: 0;
+        margin-top: 3rem;
+
+        @include xl {
+            margin-top: 0;
+            margin-left: 5rem;
+        }
+
+        .__info-title {
+            font-size: 24px;
+            font-weight: var(--font-medium);
+            text-align: center;
+
+            @include xl {
+                text-align: start;
+            }
+        }
+
+        .__info-desc {
+            font-family: var(--font-Roboto);
+            color: var(--color-gray-0);
+            border-bottom: solid 1px var(--color-gray-5);
+            margin-top: 1rem;
+            padding-bottom: 2rem;
+            text-align: center;
+
+            @include xl {
+                text-align: start;
+            }
+        }
+
+        .__info-rating-wrapper {
+            display: flex;
+            gap: 2px;
+
+            i {
+                color: var(--color-yellow-0);
+            }
+
+            .__info-rating-sum {
+                margin-left: 1rem;
+                font-family: var(--font-Roboto);
+            }
+        }
+
+        .__info-price {
+            font-size: 24px;
+            font-weight: var(--font-semi-bold);
+        }
+
+        .__info-cart-wrapper {
+
+            display: flex;
+            font-family: var(--font-Roboto);
+            margin-top: 1rem;
+            .__cart-controll-button {
+                height: 50px;
+                width: 50px;
+                background-color: transparent;
+                border: solid 1px var(--color-gray-6);
+                
+                text-align: center;
+
+                &:hover {
+                    background-color: var(--color-theme-dark);
+                    color: var(--color-theme-light);
+                }
+            }
+    
+            input {
+                width: 60px;
+                height: 50px;
+                border-left: none;
+                border-right: none;
+                text-align: center;
+                border: solid 1px var(--color-gray-6);
+            }
+
+            .__cart-button {
+                height: 50px;
+                margin-left: 2rem;
+            }
+        }
+
+        .__info-stock-wrapper {
+            display: flex;
+            margin-top: 1.5rem;
+            gap: 5px;
+
+            .__info-stock-out {
+                color: var(--color-theme-red);
+            }
+
+            .__info-stock-low {
+                color: var(--color-yellow-0);
+            }
+
+            .__info-stock-many {
+                color: var(--color-green-0);
+            }
+
+            p {
+                margin-left: 2rem;
+            }
+        }
+
+        .__info-wishlist {
+            text-align: center;
+            padding: 1rem 2rem 1rem 2rem;
+            background-color: transparent;
+            border: solid 1px var(--color-gray-6);
+            font-family: var(--font-Roboto);
+
+            &:hover {
+                background-color: var(--color-theme-dark);
+                color: var(--color-theme-light);
+            }
+        }
+
+        .__info-category {
+            font-family: var(--font-Roboto);
+            color: var(--color-gray-0);
+            margin-top: 1rem;
+        }
+    }
+}

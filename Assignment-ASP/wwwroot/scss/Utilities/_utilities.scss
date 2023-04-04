@@ -1,0 +1,22 @@
+body {
+    font-family: var(--font-Poppins);
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-theme-dark);
+
+    &:hover {
+        color: var(--color-theme-dark);
+    }
+}
+
+
+.__flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}

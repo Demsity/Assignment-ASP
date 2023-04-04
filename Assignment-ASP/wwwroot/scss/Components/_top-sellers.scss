@@ -1,0 +1,37 @@
+.__top-sellers {
+    margin-top: 3rem;
+    max-width: 1700px;
+}
+
+.__top-sellers-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+
+
+    .__top-sellers-products-wrapper {
+        display: none;
+        flex-direction: column;
+        gap: 3rem;
+
+        @include xxxl {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
+    .__top-sellers-products-big-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4rem;
+
+        @include xxl {
+            flex-direction: row;
+        }
+    }
+}
+

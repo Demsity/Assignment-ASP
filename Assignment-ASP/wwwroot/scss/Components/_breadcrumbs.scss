@@ -1,0 +1,22 @@
+.__bread {
+    background-color: var(--color-gray-2);
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 6rem;
+
+    .__bread-title{
+        font-size: 30px;
+        font-weight: var(--font-bold);
+        margin-bottom: 1rem;
+    }
+
+    .__bread-nav {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        font-size: 18px;
+        letter-spacing: 5px;
+    }
+}

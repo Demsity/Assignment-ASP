@@ -1,0 +1,78 @@
+.__promo-section {
+    background-color: var(--color-red-0);
+    margin-top: 8rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+    .__promo-wrapper{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+
+        @include xxl {
+
+            flex-direction: row;
+        }
+
+        .__promo-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background-color: var(--color-theme-light);
+
+            @include xxl {
+                margin-left: 3rem;
+                margin-right: 3rem;
+                margin-top: 0;
+                margin-bottom: 0;
+                padding-left: 5rem;
+                padding-right: 5rem;
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+            }
+
+            .__promo-hook {
+                text-align: center;
+                font-size: 18px;
+                color: var(--color-theme-red);
+            }
+
+            .__promo-title {
+                text-align: center;
+                font-size: 48px;
+                margin-top: 1rem;
+                font-family: var(--font-Roboto);
+            }
+
+            .__promo-sub-title {
+                text-align: center;
+                font-size: 24px;
+                margin-top: 1rem;
+            }
+
+            .__promo-text {
+                text-align: center;
+                margin-top: 1rem;
+                color: var(--color-gray-0);
+                font-family: var(--font-Roboto);
+            }
+
+            .__promo-link {
+                text-align: center;
+                margin-top: 2rem;
+                color: var(--color-gray-0);
+
+                &:hover {
+                    color: var(--color-theme-red);
+                }
+            }
+        }
+    }
+}
