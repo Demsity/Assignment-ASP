@@ -1,9 +1,11 @@
-﻿<section class="__hero-section">
+﻿@model HomeViewModel;
+
+<section class="__hero-section">
     <div class="__hero-wrapper container __flex-row">
         <div class="__hero-text">
-            <h3 class="__hero-title-small">WELCOME TO bmarketo SHOP</h3>
-            <h2 class="__hero-title-large">Exclusive Chair <br /> gold Collection.</h2>
-            <button class="__btn-red">SHOP NOW</button>
+            <h3 class="__hero-title-small">@Model.Hero.TitleSmall</h3>
+            <h2 class="__hero-title-large">@Model.Hero.TitleLarge</h2>
+            <a class="__btn-red">@Model.Hero.ButtonText</a>
         </div>
         <img class="__hero-img" src="" alt="">
     </div>
