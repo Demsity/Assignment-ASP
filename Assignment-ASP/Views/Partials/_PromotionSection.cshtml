@@ -1,37 +1,26 @@
-﻿    <section class="__promo-section">
-        <div class="__promo-wrapper container">
-            <div class="__product-card-big">
-                <img class="__product-card-big-img" src="" alt="">
-                <div class="__product-card-big-info">
-                    <div class="__info-text">
-                        <p class="__info-title">Apple Watch Series</p>
-                        <div class="__price-wrapper __flex-row">
-                            <p class="__info-price">$60.00</p>
-                            <p class="__info-price-discount">$30.00</p>
-                        </div>
-                    </div>
-                    <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                </div>
-            </div>
-            <div class="__promo-card">
-                <h3 class="__promo-hook">UP TO SALE</h3>
-                <h2 class="__promo-title">50% OFF</h2>
-                <h3 class="__promo-sub-title">Get The Best Price</h3>
-                <p class="__promo-text">Get the best daily offer et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren no sea taki</p>
-                <a class="__promo-link" href="">Discover More</a>
-            </div>
-            <div class="__product-card-big">
-                <img class="__product-card-big-img" src="" alt="">
-                <div class="__product-card-big-info">
-                    <div class="__info-text">
-                        <p class="__info-title">Apple Watch Series</p>
-                        <div class="__price-wrapper __flex-row">
-                            <p class="__info-price">$60.00</p>
-                            <p class="__info-price-discount">$30.00</p>
-                        </div>
-                    </div>
-                    <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                </div>
-            </div>
+﻿@inject ProductService productservice
+@model HomeViewModel
+@{
+    var products = productservice.GetProducts(2);
+}
+
+<section class="__promo-section">
+    <div class="__promo-wrapper container">
+        @if(products != null)
+        {
+             <partial name="/Views/Partials/_ProductCardBig.cshtml" model="products[0]" />
+        }
+
+        <div class="__promo-card">
+            <h3 class="__promo-hook">@Model.Promotion.Hook</h3>
+            <h2 class="__promo-title">@Model.Promotion.Title</h2>
+            <h3 class="__promo-sub-title">@Model.Promotion.SubTitle</h3>
+            <p class="__promo-text">@Model.Promotion.Text</p>
+            <a class="__promo-link" href="">@Model.Promotion.LinkText</a>
         </div>
-    </section>
+        @if (products != null)
+        {
+             <partial name="/Views/Partials/_ProductCardBig.cshtml" model="products[1]" />
+        }
+    </div>
+</section>

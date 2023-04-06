@@ -10,7 +10,7 @@ public class ProductService
 
     }
 
-    private readonly List<ProductModel> Products = new List<ProductModel>()
+    public readonly List<ProductModel> Products = new List<ProductModel>()
     {
         new ProductModel(){ Id = 1, Name= "Test",DescriptionShort= "Test",Price = 29,Rating = 4,StockTotal = 5,TotalRatings= 6,},
         new ProductModel(){ Id = 2, Name= "Test",DescriptionShort= "Test",Price = 29,Rating = 4,StockTotal = 5,TotalRatings= 6,},
@@ -24,6 +24,6 @@ public class ProductService
 
     public List<ProductModel> GetProducts(int quantity)
     {
-        return Products;
+        return Products.Take(quantity).ToList();
     }
 }

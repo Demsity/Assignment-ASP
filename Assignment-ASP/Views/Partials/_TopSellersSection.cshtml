@@ -1,91 +1,32 @@
-﻿    <section class="container __top-sellers">
-        <div class="__top-sellers-wrapper">
-            <div class="__top-seller-title">
-                <h2>Top selling products this week</h2>
-            </div>
-            <div class="__top-sellers-products-wrapper">
-                <div class="__product-card">
-                    <img class="__product-card-img" src="" alt="">
-                    <div class="__product-card-info">
-                        <div class="__info-text">
-                            <p class="__info-title">Apple Watch Series</p>
-                            <p class="__info-price">$30.00</p>
-                        </div>
-                        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                <div class="__product-card">
-                    <img class="__product-card-img" src="" alt="">
-                    <div class="__product-card-info">
-                        <div class="__info-text">
-                            <p class="__info-title">Apple Watch Series</p>
-                            <p class="__info-price">$30.00</p>
-                        </div>
-                        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                <div class="__product-card">
-                    <img class="__product-card-img" src="" alt="">
-                    <div class="__product-card-info">
-                        <div class="__info-text">
-                            <p class="__info-title">Apple Watch Series</p>
-                            <p class="__info-price">$30.00</p>
-                        </div>
-                        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                <div class="__product-card">
-                    <img class="__product-card-img" src="" alt="">
-                    <div class="__product-card-info">
-                        <div class="__info-text">
-                            <p class="__info-title">Apple Watch Series</p>
-                            <p class="__info-price">$30.00</p>
-                        </div>
-                        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                <div class="__product-card">
-                    <img class="__product-card-img" src="" alt="">
-                    <div class="__product-card-info">
-                        <div class="__info-text">
-                            <p class="__info-title">Apple Watch Series</p>
-                            <p class="__info-price">$30.00</p>
-                        </div>
-                        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="__top-sellers-products-big-wrapper">
-                <div class="__product-card-big">
-                    <img class="__product-card-big-img" src="" alt="">
-                    <div class="__product-card-big-info">
-                        <div class="__info-text">
-                            <p class="__info-title">Apple Watch Series</p>
-                            <p class="__info-price">$30.00</p>
-                        </div>
-                        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                <div class="__product-card-big">
-                    <img class="__product-card-big-img" src="" alt="">
-                    <div class="__product-card-big-info">
-                        <div class="__info-text">
-                            <p class="__info-title">Apple Watch Series</p>
-                            <p class="__info-price">$30.00</p>
-                        </div>
-                        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                <div class="__product-card-big">
-                    <img class="__product-card-big-img" src="" alt="">
-                    <div class="__product-card-big-info">
-                        <div class="__info-text">
-                            <p class="__info-title">Apple Watch Series</p>
-                            <p class="__info-price">$30.00</p>
-                        </div>
-                        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-                    </div>
-                </div>
-            </div>
+﻿@inject ProductService productservice
+@model HomeViewModel
+@{
+    var products = productservice.GetProducts(5);
+    var productsBig = productservice.GetProducts(3);
+}
+
+<section class="container __top-sellers">
+    <div class="__top-sellers-wrapper">
+        <div class="__top-seller-title">
+            <h2>@Model.TopSellers.Title</h2>
         </div>
-    </section>
+        <div class="__top-sellers-products-wrapper">
+            @if(products != null)
+            {
+                @foreach(var product in products)
+                {
+                    <partial name="/Views/Partials/_ProductCard.cshtml" model="product" />
+                }
+            }
+        </div>
+        <div class="__top-sellers-products-big-wrapper">
+            @if (productsBig != null)
+            {
+                @foreach (var product in productsBig)
+                {
+                    <partial name="/Views/Partials/_ProductCardBig.cshtml" model="product" />
+                }
+            }
+        </div>
+    </div>
+</section>

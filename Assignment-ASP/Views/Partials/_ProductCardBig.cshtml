@@ -1,0 +1,18 @@
+﻿@model ProductModel
+@{
+    var discount = Model.Price * (decimal)0.5;
+}
+
+<div class="__product-card-big">
+    <img class="__product-card-big-img" src="" alt="">
+    <div class="__product-card-big-info">
+        <div class="__info-text">
+            <p class="__info-title">@Model.Name</p>
+            <div class="__price-wrapper __flex-row">
+                <p class="__info-price">@Model.Price</p>
+                <p class="__info-price-discount ms-3">@discount</p>
+            </div>
+        </div>
+        <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
+    </div>
+</div>

@@ -24,4 +24,19 @@ public class HomeViewModel
             "phones"
         }
     };
+
+    public PromotionModel Promotion = new PromotionModel()
+    {
+        Hook = "UP TO SALE",
+        Title = "50% OFF",
+        SubTitle = "Get The Best Price",
+        Text = "Get the best daily offer et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren no sea taki",
+        LinkText = "Discover More",
+        LinkURL = ""
+    };
+
+    public TopSellersModel TopSellers = new TopSellersModel()
+    {
+        Title = "Top selling products this week"
+    };
 }
