@@ -4,19 +4,19 @@
     padding-top: 5rem;
     padding-bottom: 5rem;
 
-    .__promo-wrapper{
+    .__promo-wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-direction: column;
 
         @include xxl {
-
             flex-direction: row;
         }
 
         .__promo-card {
             display: flex;
+            flex: 1;
             flex-direction: column;
             align-items: center;
             justify-content: center;

@@ -3,10 +3,9 @@
     justify-content: center;
     align-items: start;
     flex-direction: column;
-
     border-bottom: solid 1px var(--color-gray-5);
 
-    .__product-card-big-img{
+    .__product-card-big-img {
         width: 390px;
         height: 395px;
         background-color: var(--color-gray-3);
@@ -27,12 +26,12 @@
 
         .__price-wrapper {
             justify-content: space-between;
+
             .__info-price {
                 color: var(--color-gray-0);
-                
                 text-decoration: line-through;
             }
-    
+
             .__info-price-discount {
                 color: var(--color-gray-0);
             }
@@ -49,6 +48,20 @@
                 color: var(--color-theme-red);
             }
         }
+    }
 
+    @include xxl {
+        .__info-button {
+            position: absolute;
+            bottom: -30px;
+            right: 15px;
+            transition: ease-in-out 100ms;
+        }
+
+        &:hover {
+            .__info-button {
+                bottom: 50px;
+            }
+        }
     }
 }

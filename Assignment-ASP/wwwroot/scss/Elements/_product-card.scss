@@ -3,10 +3,9 @@
     justify-content: center;
     align-items: start;
     flex-direction: column;
-
     border-bottom: solid 1px var(--color-gray-5);
 
-    .__product-card-img{
+    .__product-card-img {
         width: 290px;
         height: 295px;
         background-color: var(--color-gray-3);
@@ -37,6 +36,20 @@
                 color: var(--color-theme-red);
             }
         }
+    }
 
+    @include xxl {
+        .__info-button {
+            position: absolute;
+            bottom: -30px;
+            right: 10px;
+            transition: ease-in-out 100ms;
+        }
+
+        &:hover {
+            .__info-button {
+                bottom: 35px;
+            }
+        }
     }
 }

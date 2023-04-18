@@ -2,9 +2,9 @@
     <div class="container __header-wrapper __flex-row mt-4 mb-4">
         <nav class="__flex-row __header-icon">
             <a asp-controller="Home" asp-action="Index"><img src="/images/logo.svg" alt="bmerketo-logo"></a>
-            <i class="__nav-link-gray __header-menu-icon me-3 fa-solid fa-bars"></i>
+            <button class="__menu_button" data-option="toggle" data-target="#menu"><i class="__nav-link-gray __header-menu-icon me-3 fa-solid fa-bars"></i></button>
         </nav>
-        <nav class="__flex-row __header-menu-links">
+        <nav id="menu" class="__flex-row hide __header-menu-links">
             <a class="__nav-link me-3" asp-controller="Home" asp-action="Index">HOME</a>
             <a class="__nav-link me-3" asp-controller="Product" asp-action="Index">PRODUCTS</a>
             <a class="__nav-link me-3" asp-controller="Contact" asp-action="Index">CONTACT</a>

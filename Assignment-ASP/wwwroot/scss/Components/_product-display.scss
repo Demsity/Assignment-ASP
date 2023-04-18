@@ -1,8 +1,7 @@
 .__product-display-section {
-
     margin-top: 5rem;
-    .__display-wrapper {
 
+    .__display-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -13,25 +12,27 @@
             margin-bottom: 2rem;
             font-weight: var(--font-semi-bold);
         }
-    
-        .__display-nav{
+
+        .__display-nav {
             display: none;
             justify-content: center;
-            align-items: top;
-            gap: 1rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
 
             @include lg {
                 display: flex;
             }
-    
-            .__display-divider {
-                margin-top: 4px;
-                font-size: 10px;
-            }
 
-            a {
+            .__display-item {
+                margin-right: 5px;
                 font-size: 16px;
                 color: var(--color-gray-1);
+
+                & + .__display-item::before {
+                    content: "/";
+                    margin-right: 5px;
+                }
 
                 &:hover {
                     color: var(--color-theme-red);
@@ -47,15 +48,13 @@
             margin-top: 3rem;
 
             @include md {
-                
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
             }
 
             @include xxl {
-                
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 1fr);
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(2, 1fr);
             }
         }
     }
