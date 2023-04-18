@@ -1,13 +1,6 @@
-﻿    <!-- BreadCrumbs section -->
-<nav class="__bread">
-    <h3 class="__bread-title">CONTACT</h3>
-    <div class="__bread-nav">
-        <a href="/Index.html">HOME</a>
-        <p>/</p>
-        <p>CONTACT</p>
-    </div>
-</nav>
+﻿@model ContactViewModel
 
+<partial model="@Model.Breadcrumbs" name="../partials/_Breadcrumbs.cshtml" />
 <!-- Contact Form -->
 <form class="__contact-form container" action="">
     <h3 class="__form-title">Write something</h3>

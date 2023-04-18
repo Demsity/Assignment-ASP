@@ -1,0 +1,10 @@
+﻿@model BreadcrumbsModel
+
+<nav class="__bread">
+    <h3 class="__bread-title">@Model.CurrentPage</h3>
+    <div class="__bread-nav">
+        <a asp-controller="Home" asp-action="Index">HOME</a>
+        <p>/</p>
+        <p>@Model.CurrentPage</p>
+    </div>
+</nav>

@@ -1,16 +1,8 @@
-﻿ 
+﻿@model ProductViewModel
    
 
 
-<!-- BreadCrumbs section -->
-<nav class="__bread">
-    <h3 class="__bread-title">SHOP</h3>
-    <div class="__bread-nav">
-        <a href="/Index.html">HOME</a>
-        <p>/</p>
-        <p>Product</p>
-    </div>
-</nav>
+<partial model="@Model.Breadcrumbs" name="../Partials/_Breadcrumbs.cshtml" />
 
 <!-- Product Details Top -->
 <section class="container">
