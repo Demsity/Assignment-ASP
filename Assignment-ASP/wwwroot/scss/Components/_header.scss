@@ -23,6 +23,11 @@
         }
     }
 
+    .__menu_button {
+        background-color: transparent;
+        border: none;
+    }
+
     .__header-menu-links {
         flex-direction: column;
         margin-top: 2rem;
@@ -70,4 +75,8 @@
     }
 
 
+}
+
+.hide {
+    display: none;
 }

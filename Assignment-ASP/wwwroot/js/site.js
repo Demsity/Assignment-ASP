@@ -1,4 +1,19 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿try {
 
-// Write your JavaScript code.
+
+    const toggleButton = document.querySelector('[data-option="toggle"]')
+    const target = toggleButton.getAttribute('data-target')
+    toggleButton.addEventListener('click', toggleTarget)
+
+    function toggleTarget() {
+        console.log('test')
+
+        const element = document.querySelector(target)
+
+        if (!element.classList.contains('hide')) {
+            element.classList.add('hide')
+        } else {
+            element.classList.remove('hide')
+        }
+    }
+} catch { }
