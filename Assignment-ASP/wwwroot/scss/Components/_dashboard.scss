@@ -1,0 +1,30 @@
+.__dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .__dashboard-btn-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+
+        a {
+            margin: 1rem;
+
+            &:hover {
+                color: var(--color-theme-light);
+            }
+        }
+    }
+
+    img {
+        margin-top: 1rem;
+        display: none;
+
+        @include lg {
+            display: block;
+        }
+    }
+}

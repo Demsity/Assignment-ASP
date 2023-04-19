@@ -1,0 +1,42 @@
+.__form-group-password {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+        color: var(--color-theme-red);
+        font-size: 14px;
+    }
+}
+
+.__group-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    @include md {
+        flex-direction: row;
+        align-items: baseline;
+    }
+
+    a {
+        color: var(--color-theme-red);
+        font-size: 14px;
+    }
+}
+
+.__login-wrapper{
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+.__register-wrapper{
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+.__terms-link {
+    color: blue;
+    text-decoration: underline;
+}

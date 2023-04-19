@@ -1,0 +1,22 @@
+.__list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 50%;
+
+    .__item-box {
+        display: flex;
+        flex-direction: row;
+        padding: 1rem;
+        justify-content: space-evenly;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        border: 1px solid gainsboro;
+
+        button {
+            border: none;
+            background: transparent;
+        }
+    }
+}

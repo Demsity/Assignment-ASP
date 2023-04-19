@@ -1,0 +1,31 @@
+﻿
+
+<section class="container __login-wrapper">
+    <form class="__contact-form container" action="">
+        <h3 class="__form-title">Please Login to Your Account</h3>
+        <div class="__form-divider"></div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="email">Email *</label>
+                <input class="__form-input-box" type="email" name="email">
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <div class="__form-group-password">
+                    <label for="phone">Password *</label>
+                    <a href="">Forgot Your Password?</a>
+                </div>
+                <input class="__form-input-box" type="password" name="password">
+            </div>
+        </div>
+        <div class="__form-remember">
+            <input type="checkbox" name="remember" id="remember">
+            <label class="__remember-text" for="remember">Please keep me logged in</label>
+        </div>
+        <div class="__group-button-wrapper">
+            <button type="submit" class="__btn-red __form-submit-btn mt-5">Login</button>
+            <a asp-controller="Register" asp-action="index">Dont have an account yet?</a>
+        </div>
+    </form>
+</section>
