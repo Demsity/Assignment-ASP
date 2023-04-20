@@ -3,21 +3,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 3rem;
 
-    .__dashboard-btn-wrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 2rem;
 
-        a {
-            margin: 1rem;
-
-            &:hover {
-                color: var(--color-theme-light);
-            }
-        }
-    }
 
     img {
         margin-top: 1rem;
@@ -25,6 +13,21 @@
 
         @include lg {
             display: block;
+        }
+    }
+}
+
+.__dashboard-btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+
+    a {
+        margin: 1rem;
+
+        &:hover {
+            color: var(--color-theme-light);
         }
     }
 }
