@@ -1,0 +1,74 @@
+﻿
+
+<section class="container __login-wrapper">
+    <div class="__dashboard-btn-wrapper">
+        <a asp-action="ManageUsers" class="__btn-red">Go back</a>
+    </div>
+    <form class="__contact-form container" action="">
+        <h3 class="__form-title">Create a user</h3>
+        <div class="__form-divider"></div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="phone">First Name *</label>
+                <input class="__form-input-box" type="text" name="firstName">
+            </div>
+            <div class="__form-group">
+                <label for="company">Last Name *</label>
+                <input class="__form-input-box" type="text" name="lastName">
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="email">Street Name *</label>
+                <input class="__form-input-box" type="text" name="streetName">
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="phone">Postal Code *</label>
+                <input class="__form-input-box" type="text" name="postalCode">
+            </div>
+            <div class="__form-group">
+                <label for="company">City *</label>
+                <input class="__form-input-box" type="text" name="City">
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="phone">Mobile (optional)</label>
+                <input class="__form-input-box" type="text" name="phone">
+            </div>
+            <div class="__form-group">
+                <label for="company">Company (optional)</label>
+                <input class="__form-input-box" type="text" name="company">
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="email">Email *</label>
+                <input class="__form-input-box" type="email" name="email">
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="phone">Password *</label>
+                <input class="__form-input-box" type="password" name="password">
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="phone">Confirm Password *</label>
+                <input class="__form-input-box" type="password" name="passwordConfirm">
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label for="phone">Upload Profile Image (Optional)</label>
+                <input class="__form-input-box" type="text" name="profile_img">
+            </div>
+        </div>
+        <div class="__group-button-wrapper">
+            <button type="submit" class="__btn-red __form-submit-btn mt-5">Save</button>
+        </div>
+    </form>
+</section>

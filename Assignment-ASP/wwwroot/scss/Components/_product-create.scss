@@ -20,3 +20,12 @@
         }
     }
 }
+
+.__product-categories {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 0.6rem;
+    background-color: var(--color-white-0);
+    height: 50px;
+}
