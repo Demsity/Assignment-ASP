@@ -16,18 +16,6 @@ public class ProductService
         _context = context;
     }
 
-    public readonly List<ProductModel> Products = new List<ProductModel>()
-    {
-        new ProductModel(){ Id = 1, Name= "Test",Description= "Test",Price = 29,Rating = 4,StockTotal = 5,TotalRatings= 6,},
-        new ProductModel(){ Id = 2, Name= "Test",Description= "Test",Price = 29,Rating = 4,StockTotal = 5,TotalRatings= 6,},
-        new ProductModel(){ Id = 3, Name= "Test",Description= "Test",Price = 33,Rating = 4,StockTotal = 5,TotalRatings= 6,},
-        new ProductModel(){ Id = 4, Name= "Test",Description= "Test",Price = 33,Rating = 4,StockTotal = 5,TotalRatings= 6,},
-        new ProductModel(){ Id = 5, Name= "Test",Description= "Test",Price = 29,Rating = 4,StockTotal = 5,TotalRatings= 6,},
-        new ProductModel(){ Id = 6, Name= "Test",Description= "Test",Price = 29,Rating = 4,StockTotal = 5,TotalRatings= 6,},
-        new ProductModel(){ Id = 7, Name= "Test",Description= "Test",Price = 44,Rating = 4,StockTotal = 5,TotalRatings= 6,},
-        new ProductModel(){ Id = 8, Name= "Test",Description= "Test",Price = 44,Rating = 4,StockTotal = 5,TotalRatings= 6,}
-    };
-
     public async Task<Boolean> SaveProductAsync(CreateProductViewModel model)
     {
         if (model != null)
@@ -73,17 +61,19 @@ public class ProductService
     public async Task<List<ProductModel>> GetProducts(int quantity)
     {
         List<ProductModel> _products = new List<ProductModel>();
-        foreach (var productEntity in await _context.Products.Take(quantity).ToListAsync()) 
-        { 
-            var productModel = new ProductModel();
-            productModel.Id = productEntity.Id;
-            productModel.Name = productEntity.Name;
-            productModel.Description = productEntity.Description;
-            productModel.Price = productEntity.Price;
-            productModel.Rating = productEntity.Rating;
-            productModel.TotalRatings = productEntity.TotalRatings;
-            productModel.StockTotal = productEntity.StockTotal;
-            productModel.ImagePath = productEntity.ImagePath;
+        foreach (var productEntity in await _context.Products.Include(x => x.Categories).Take(quantity).ToListAsync()) 
+        {
+            var productModel = new ProductModel
+            {
+                Id = productEntity.Id,
+                Name = productEntity.Name,
+                Description = productEntity.Description,
+                Price = productEntity.Price,
+                Rating = productEntity.Rating,
+                TotalRatings = productEntity.TotalRatings,
+                StockTotal = productEntity.StockTotal,
+                ImagePath = productEntity.ImagePath,
+            };
 
             _products.Add(productModel);
         }
@@ -92,9 +82,21 @@ public class ProductService
 
     public async Task<List<ProductModel>> GetAllProducts() 
     {
+
+
+
         List<ProductModel> _products = new List<ProductModel>();
         foreach (var productEntity in await _context.Products.ToListAsync())
         {
+            var lookUp = await _context.ProductCategories.Where(x => x.productId == productEntity.Id).ToListAsync();
+            var _categories = new List<CategoryModel>();
+            foreach (var entry in lookUp)
+            {
+                CategoryModel category = await _context.Categories.Where(x => x.Id == entry.categoryId).FirstOrDefaultAsync();
+                category.isActive = true;
+                _categories.Add(category);
+            }
+
             var productModel = new ProductModel();
             productModel.Id = productEntity.Id;
             productModel.Name = productEntity.Name;
@@ -104,6 +106,7 @@ public class ProductService
             productModel.TotalRatings = productEntity.TotalRatings;
             productModel.StockTotal = productEntity.StockTotal;
             productModel.ImagePath = productEntity.ImagePath;
+            productModel.Categories = _categories;
 
             _products.Add(productModel);
         }

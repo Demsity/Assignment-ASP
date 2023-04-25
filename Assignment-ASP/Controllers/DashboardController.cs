@@ -49,6 +49,8 @@ public class DashboardController : Controller
         return View(viewModel);
     }
 
+
+
     [HttpPost]
     public async Task<IActionResult> CreateProduct(CreateProductViewModel viewModel)
     {
