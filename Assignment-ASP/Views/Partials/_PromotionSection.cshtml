@@ -1,7 +1,7 @@
 ﻿@inject ProductService productservice
 @model HomeViewModel
 @{
-    var products = productservice.GetProducts(2);
+    var products = await productservice.GetProducts(2);
 }
 
 <section class="__promo-section">

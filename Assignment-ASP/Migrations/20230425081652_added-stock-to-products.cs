@@ -5,7 +5,7 @@
 namespace Assignment_ASP.Migrations
 {
     /// <inheritdoc />
-    public partial class addedstocktoproducts : Migration
+    public partial class Addedstocktoproducts : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

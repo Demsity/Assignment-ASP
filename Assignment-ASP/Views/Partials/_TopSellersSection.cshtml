@@ -1,7 +1,7 @@
 ﻿@model HomeViewModel
 @{
-    var products = productservice.GetProducts(5);
-    var productsBig = productservice.GetProducts(3);
+    var products = await productService.GetProducts(5);
+    var productsBig = await productService.GetProducts(3);
 }
 
 <section class="container __top-sellers">

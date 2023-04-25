@@ -12,7 +12,7 @@ namespace Assignment_ASP.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20230425081652_added-stock-to-products")]
-    partial class addedstocktoproducts
+    partial class Addedstocktoproducts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

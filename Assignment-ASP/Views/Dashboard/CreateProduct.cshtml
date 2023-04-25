@@ -4,7 +4,7 @@
     <div class="__dashboard-btn-wrapper">
         <a asp-action="ManageProducts" class="__btn-red">Go back</a>
     </div>
-    <form method="post" class="__contact-form container" novalidate>
+    <form method="post" class="__contact-form container">
         <h3 class="__form-title">Create a new product</h3>
         <div class="__form-divider"></div>
         <div class="__form-wrapper">
@@ -26,22 +26,23 @@
                 <small><span asp-validation-for="Description" class="mt-2 text-danger"></span></small>
             </div>
         </div>
-        <div class="__form-wrapper">
+         <div class="__form-wrapper">
             <div class="__form-group">
                 <label asp-for="Categories"></label>
                 <div class="__product-categories">
-                    <div class="__category-wrapper">
-                        <input type="checkbox" name="Category_featured" id="Category_featured">
-                        <Label for="Category_featured">Featured</Label>
-                    </div>
-                    <div class="__category-wrapper">
-                        <input type="checkbox" name="Category_new" id="Category_new">
-                        <Label for="Category_new">New</Label>
-                    </div>
-                    <div class="__category-wrapper">
-                        <input type="checkbox" name="Category_popular" id="Category_popular">
-                        <Label for="Category_popular">Popular</Label>
-                    </div>
+                    @{
+                        for (var i = 0; i < Model.Categories.Count(); i++)
+                        {
+                            <div class="__category-wrapper">
+                                <input asp-for="@Model.Categories[i].Id" hidden />
+                                <input asp-for="@Model.Categories[i].Name" hidden />
+                                <input asp-for="@Model.Categories[i].isActive">
+                                <Label asp-for="@Model.Categories[i].isActive">@Model.Categories[i].Name</Label>
+                            </div>
+
+                            
+                        }
+                    }
                 </div>
                 <small><span asp-validation-for="Categories" class="mt-2 text-danger"></span></small>
             </div>
