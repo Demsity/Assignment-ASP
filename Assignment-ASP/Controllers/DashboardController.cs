@@ -40,15 +40,32 @@ public class DashboardController : Controller
         return View();
     }
 
+    // Delete product from the list
+    [HttpPost]
+    public async Task<IActionResult> ManageProducts(int productId)
+    {
+        if (productId > 0)
+        {
+            if (await productService.DeleteProduct(productId))
+            {
+                TempData["Message"] = "Product has been deleted";
+                return RedirectToAction("ManageProducts");
+            }
+        }
+
+        TempData["Message"] = "Product could not be deleted";
+        return RedirectToAction("ManageProducts");
+    }
+
     public async Task<IActionResult> CreateProduct() 
     {
         ViewData["Title"] = "Create Product";
-        var viewModel = new CreateProductViewModel();
-        viewModel.Categories = new List<CategoryModel>();
-        viewModel.Categories = await categoryService.GetAllCategoriesAsync();
+        var viewModel = new CreateProductViewModel
+        {
+            Categories = await categoryService.GetAllCategoriesAsync()
+        };
         return View(viewModel);
     }
-
 
 
     [HttpPost]

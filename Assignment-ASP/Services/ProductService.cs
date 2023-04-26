@@ -58,6 +58,28 @@ public class ProductService
         return false;
     }
 
+    public async Task<bool> DeleteProduct(int productId)
+    {
+        if (productId > 0)
+        {
+            try
+            {
+                var product = await _context.Products.FirstOrDefaultAsync(x => productId == x.Id);
+                if (product != null)
+                {
+                    _context.Products.Remove(product);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+            } catch
+            {
+                return false;
+            }
+            
+        }
+        return false;
+    }
+
     public async Task<List<ProductModel>> GetProducts(int quantity)
     {
         List<ProductModel> _products = new List<ProductModel>();
