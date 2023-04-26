@@ -52,11 +52,38 @@ public class ProductService
                 await _context.SaveChangesAsync();
                 return true;
                 
-            }
+            } 
 
-            // If product exists, update it
         }
 
+        return false;
+    }
+
+    public async Task<bool> UpdateProductAsync(UpdateProductViewModel model)
+    {
+        if(model != null)
+        {
+            var _product = await _context.Products.FirstOrDefaultAsync(x => x.Id == model.Id);
+            if( _product != null)
+            {
+                if (string.IsNullOrEmpty(model.Name) && string.IsNullOrEmpty(model.Description) && model.Price < 0)
+                {
+                    _product.Name = model.Name;
+                    _product.Description = model.Description;
+                    _product.Price = model.Price;
+                    _product.Rating = model.Rating;
+                    _product.TotalRatings = model.TotalRatings;
+                    _product.StockTotal = model.StockTotal;
+                    _product.ImagePath = model.ImagePath;
+
+                    _context.Products.Update(_product);
+                    await _context.SaveChangesAsync();
+                }
+
+                //Deal with categories 
+            }
+            return false;
+        }
         return false;
     }
 
@@ -107,16 +134,6 @@ public class ProductService
                     _categories.Add(category);
                 }
 
-               /* foreach (var entry in lookUp)
-                {
-                    CategoryModel category = await _context.Categories.Where(x => x.Id == entry.categoryId).FirstOrDefaultAsync();
-                    category.isActive = true;
-                    _categories.Add(category);
-                }
-
-                _categories.AddRange(_allCategories.Except(_categories));
- 
-                */
                 _product.Categories = _categories;
                 return _product;
             }

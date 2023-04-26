@@ -92,4 +92,17 @@ public class DashboardController : Controller
         TempData["Message"] = "Product was not found";
         return View("ManageProducts");
     }
+
+    [HttpPatch]
+    public async Task<IActionResult> UpdateProducts(UpdateProductViewModel viewModel)
+    {
+        ViewData["Title"] = "Update Product";
+        if (ModelState.IsValid)
+        {
+            var result = await productService.UpdateProductAsync(viewModel);
+            if (result)
+                return RedirectToAction("ManageProducts");
+        }
+        return View(viewModel);
+    }
 }
