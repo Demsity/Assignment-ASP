@@ -22,19 +22,19 @@ public class DashboardController : Controller
         return View();
     }
 
-    public IActionResult ManageUsers() 
+    public IActionResult ManageUsers()
     {
         ViewData["Title"] = "Manage Users";
         return View();
     }
 
-    public IActionResult CreateUser() 
+    public IActionResult CreateUser()
     {
         ViewData["Title"] = "Create User";
-        return View();        
+        return View();
     }
 
-    public IActionResult ManageProducts() 
+    public IActionResult ManageProducts()
     {
         ViewData["Title"] = "Manage Products";
         return View();
@@ -57,7 +57,7 @@ public class DashboardController : Controller
         return RedirectToAction("ManageProducts");
     }
 
-    public async Task<IActionResult> CreateProduct() 
+    public async Task<IActionResult> CreateProduct()
     {
         ViewData["Title"] = "Create Product";
         var viewModel = new CreateProductViewModel
@@ -78,7 +78,18 @@ public class DashboardController : Controller
             if (result)
                 return RedirectToAction("ManageProducts");
         }
-
         return View(viewModel);
+    }
+
+    public async Task<IActionResult> UpdateProduct(int Id)
+    {
+        if (Id > 0)
+        {
+            var product = await productService.GetProductById(Id);
+            if (product != null)
+                return View(product);
+        }
+        TempData["Message"] = "Product was not found";
+        return View("ManageProducts");
     }
 }

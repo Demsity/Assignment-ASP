@@ -31,7 +31,7 @@
                                 </div>
                             }
                         }
-                        <a asp-action="UpdateProduct" asp><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a asp-action="UpdateProduct" asp-route-id="@product.Id"><i class="fa-solid fa-pen-to-square"></i></a>
                         <form method="post" novalidate>
                             <input type="number" name="productId" hidden value="@product.Id" />
                             <button type="submit"><i class="fa-light fa-trash"></i></button>

@@ -20,6 +20,7 @@ public class ProductModel
     {
         return new ProductEntity
         {
+            Id = model.Id,
             Name = model.Name,
             Description = model.Description,
             Price = model.Price,
@@ -27,6 +28,22 @@ public class ProductModel
             TotalRatings = model.TotalRatings,
             StockTotal = model.StockTotal,
             ImagePath = model.ImagePath,
+        };
+    }
+
+    public static implicit operator ProductModel(ProductEntity entity)
+    {
+        return new ProductModel
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            Description = entity.Description,
+            Price = entity.Price,
+            Rating = entity.Rating,
+            TotalRatings = entity.TotalRatings,
+            StockTotal = entity.StockTotal,
+            ImagePath = entity.ImagePath,
+
         };
     }
 }

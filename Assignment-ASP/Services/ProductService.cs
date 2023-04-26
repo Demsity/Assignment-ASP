@@ -10,10 +10,12 @@ public class ProductService
 {
 
     private DataContext _context;
+    private CategoryService _categoryService;
 
-    public ProductService(DataContext context)
+    public ProductService(DataContext context, CategoryService categoryService)
     {
         _context = context;
+        _categoryService = categoryService;
     }
 
     public async Task<Boolean> SaveProductAsync(CreateProductViewModel model)
@@ -78,6 +80,52 @@ public class ProductService
             
         }
         return false;
+    }
+
+    public async Task<ProductModel> GetProductById(int productId)
+    {
+        try
+        {
+            ProductModel _product = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId);
+            List<CategoryModel> _allCategories = await _categoryService.GetAllCategoriesAsync();
+
+
+            if (_product != null)
+            {
+                var lookUp = await _context.ProductCategories.Where(x => x.productId == _product.Id).ToListAsync();
+                var _categories = new List<CategoryModel>();
+
+                foreach (var category in _allCategories) 
+                {
+                    foreach (var entry in lookUp)
+                    {
+                        if (entry.categoryId == category.Id)
+                        {
+                            category.isActive = true;
+                        }
+                    }
+                    _categories.Add(category);
+                }
+
+               /* foreach (var entry in lookUp)
+                {
+                    CategoryModel category = await _context.Categories.Where(x => x.Id == entry.categoryId).FirstOrDefaultAsync();
+                    category.isActive = true;
+                    _categories.Add(category);
+                }
+
+                _categories.AddRange(_allCategories.Except(_categories));
+ 
+                */
+                _product.Categories = _categories;
+                return _product;
+            }
+            return null;
+        } catch
+        {
+            return null;
+        }
+        
     }
 
     public async Task<List<ProductModel>> GetProducts(int quantity)

@@ -1,0 +1,78 @@
+﻿@model ProductModel
+
+<section class="container __login-wrapper">
+    <div class="__dashboard-btn-wrapper">
+        <a asp-action="ManageProducts" class="__btn-red">Go back</a>
+    </div>
+    <form method="post" class="__contact-form container">
+        <h3 class="__form-title">Create a new product</h3>
+        <div class="__form-divider"></div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="__form-input-box">
+                <small><span asp-validation-for="Name" class="text-danger"></span></small>
+            </div>
+            <div class="__form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="__form-input-box">
+                <small><span asp-validation-for="Price" class="mt-2 text-danger"></span></small>
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="__form-input-box"></textarea>
+                <small><span asp-validation-for="Description" class="mt-2 text-danger"></span></small>
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label asp-for="Categories"></label>
+                <div class="__product-categories">
+                    @{
+                        for (var i = 0; i < Model.Categories.Count(); i++)
+                        {
+                            <div class="__category-wrapper">
+                                <input asp-for="@Model.Categories[i].Id" hidden />
+                                <input asp-for="@Model.Categories[i].Name" hidden />
+                                <input asp-for="@Model.Categories[i].isActive">
+                                <Label asp-for="@Model.Categories[i].isActive">@Model.Categories[i].Name</Label>
+                            </div>
+
+
+                        }
+                    }
+                </div>
+                <small><span asp-validation-for="Categories" class="mt-2 text-danger"></span></small>
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label asp-for="Rating"></label>
+                <input asp-for="Rating" class="__form-input-box">
+                <small><span asp-validation-for="Rating" class="mt-2 text-danger"></span></small>
+            </div>
+            <div class="__form-group">
+                <label asp-for="TotalRatings"></label>
+                <input asp-for="TotalRatings" class="__form-input-box">
+                <small><span asp-validation-for="TotalRatings" class="mt-2 text-danger"></span></small>
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label asp-for="ImagePath"></label>
+                <input asp-for="ImagePath" class="__form-input-box">
+                <small><span asp-validation-for="ImagePath" class="mt-2 text-danger"></span></small>
+            </div>
+            <div class="__form-group">
+                <label asp-for="StockTotal"></label>
+                <input asp-for="StockTotal" class="__form-input-box">
+                <small><span asp-validation-for="StockTotal" class="mt-2 text-danger"></span></small>
+            </div>
+        </div>
+        <div class="__group-button-wrapper">
+            <button type="submit" class="__btn-red __form-submit-btn mt-5">Save</button>
+        </div>
+    </form>
+</section>
