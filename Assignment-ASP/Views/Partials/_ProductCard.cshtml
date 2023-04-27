@@ -1,7 +1,7 @@
 ﻿@model ProductModel
 
 <div class="__product-card">
-    <a href=""><img class="__product-card-img" src="" alt=""></a>
+    <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id"><img class="__product-card-img" src="" alt=""></a>
     <div class="__product-card-info">
         <div class="__info-text">
             <p class="__info-title">@Model.Name</p>
