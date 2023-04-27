@@ -83,9 +83,10 @@ public class DashboardController : Controller
 
     public async Task<IActionResult> UpdateProduct(int Id)
     {
+        ViewData["Title"] = "Update Product";
         if (Id > 0)
         {
-            var product = await productService.GetProductById(Id);
+            UpdateProductViewModel product = await productService.GetProductById(Id);
             if (product != null)
                 return View(product);
         }
@@ -93,8 +94,8 @@ public class DashboardController : Controller
         return View("ManageProducts");
     }
 
-    [HttpPatch]
-    public async Task<IActionResult> UpdateProducts(UpdateProductViewModel viewModel)
+    [HttpPost]
+    public async Task<IActionResult> UpdateProduct(UpdateProductViewModel viewModel)
     {
         ViewData["Title"] = "Update Product";
         if (ModelState.IsValid)

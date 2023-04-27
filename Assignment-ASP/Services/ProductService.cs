@@ -66,7 +66,8 @@ public class ProductService
             var _product = await _context.Products.FirstOrDefaultAsync(x => x.Id == model.Id);
             if( _product != null)
             {
-                if (string.IsNullOrEmpty(model.Name) && string.IsNullOrEmpty(model.Description) && model.Price < 0)
+                // Update Information
+                if (!string.IsNullOrEmpty(model.Name) && !string.IsNullOrEmpty(model.Description) && model.Price > 0)
                 {
                     _product.Name = model.Name;
                     _product.Description = model.Description;
@@ -77,10 +78,43 @@ public class ProductService
                     _product.ImagePath = model.ImagePath;
 
                     _context.Products.Update(_product);
-                    await _context.SaveChangesAsync();
                 }
 
-                //Deal with categories 
+                await _context.SaveChangesAsync();
+
+                // Handle Categories
+                // Looks like shit, refactor
+                if (model.Categories != null)
+                {
+                    foreach (var category in model.Categories)
+                    {
+                        var lookUp = await _context.ProductCategories.FirstOrDefaultAsync(x => x.productId == model.Id && x.categoryId == category.Id);
+                        var _category = new ProductCategoryEntity
+                        {
+                            productId = model.Id,
+                            categoryId = category.Id,
+                        };
+
+                        if (category.isActive == true)
+                        {
+                            if (lookUp == null)
+                            {
+                                _context.ProductCategories.Add(_category);
+
+                            } 
+                        } else
+                        {
+                            if (lookUp != null)
+                            {
+                                
+                                _context.ProductCategories.Remove(lookUp);
+                            }
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                }
+                return true;
             }
             return false;
         }
@@ -114,12 +148,12 @@ public class ProductService
         try
         {
             ProductModel _product = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId);
-            List<CategoryModel> _allCategories = await _categoryService.GetAllCategoriesAsync();
 
 
             if (_product != null)
             {
                 var lookUp = await _context.ProductCategories.Where(x => x.productId == _product.Id).ToListAsync();
+                List<CategoryModel> _allCategories = await _categoryService.GetAllCategoriesAsync();
                 var _categories = new List<CategoryModel>();
 
                 foreach (var category in _allCategories) 

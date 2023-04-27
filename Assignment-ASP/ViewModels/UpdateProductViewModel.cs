@@ -67,6 +67,7 @@ namespace Assignment_ASP.ViewModels
                 TotalRatings = model.TotalRatings,
                 StockTotal = model.StockTotal,
                 ImagePath = model.ImagePath,
+                Categories = model.Categories,
             };
         }
     }
