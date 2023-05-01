@@ -8,7 +8,14 @@ public class ProductViewModel
     //SingleView
     public BreadcrumbsModel Breadcrumbs = new BreadcrumbsModel()
     {
-        CurrentPage = "PRODUCT"
+        CurrentPage = "PRODUCTS"
+    };
+
+    public ProductDisplayModel ProductDisplay = new ProductDisplayModel()
+    {
+        Title = "PRODUCTS",
+        GetAll = true
+
     };
 
 }

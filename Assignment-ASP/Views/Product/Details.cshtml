@@ -57,15 +57,15 @@
 
             <div class="__info-stock-wrapper">
                 @{
-                    if (Model.Rating == 0)
+                    if (Model.StockTotal == 0)
                     {
                         <i class="__info-stock-out fa-solid fa-circle"></i>
                     }
-                    if (Model.Rating > 0 && Model.Rating < 2)
+                    if (Model.StockTotal > 0 && Model.StockTotal < 2)
                     {
                         <i class="__info-stock-low fa-solid fa-circle"></i>
                     }
-                    else
+                    else if(Model.StockTotal != 0)
                     {
                         <i class="__info-stock-many fa-solid fa-circle"></i>
                     }

@@ -16,13 +16,7 @@ public class HomeViewModel
     public ProductDisplayModel ProductDisplay = new ProductDisplayModel()
     {
         Title = "Best Collection",
-        categories = new List<string>() 
-        {
-            "test",
-            "tops",
-            "computers",
-            "phones"
-        }
+        NumberOfProducts = 8,
     };
 
     public PromotionModel Promotion = new PromotionModel()

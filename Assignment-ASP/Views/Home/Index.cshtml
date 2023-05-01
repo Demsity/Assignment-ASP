@@ -1,6 +1,8 @@
-﻿<partial name="../partials/_HeroSection.cshtml" />
+﻿@model HomeViewModel
 
-<partial name="../partials/_ProductDisplaySection.cshtml" />
+<partial name="../partials/_HeroSection.cshtml" />
+
+<partial model=@Model.ProductDisplay; name="../partials/_ProductDisplaySection.cshtml" />
 
 <partial name="../partials/_PromotionSection.cshtml" />
 

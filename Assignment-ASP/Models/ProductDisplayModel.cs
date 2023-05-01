@@ -4,6 +4,7 @@ public class ProductDisplayModel
 {
     public string Title { get; set; } = null!;
 
-    //Change later to categorymodel?
-    public List<string>? categories { get; set; }
+    public int NumberOfProducts { get; set; }
+
+    public bool GetAll { get; set; } = false;
 }
