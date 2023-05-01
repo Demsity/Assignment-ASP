@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Assignment_ASP.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment_ASP.Controllers
 {
@@ -6,7 +7,16 @@ namespace Assignment_ASP.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["Title"] = "Login";
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(UserLoginViewModel viewModel)
+        {
+            ViewData["Title"] = "Register";
+
+            return View(viewModel);
         }
     }
 }
