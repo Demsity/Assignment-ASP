@@ -10,7 +10,16 @@
             <a class="__nav-link me-3" asp-controller="Product" asp-action="Index">PRODUCTS</a>
             <a class="__nav-link me-3" asp-controller="Contact" asp-action="Index">CONTACT</a>
             <i class="__nav-link-gray me-3 fa-solid fa-magnifying-glass"></i>
-            <a class="__nav-link-gray me-3" asp-controller="Login" asp-action="Index">Login</a>
+            @{
+                if (signInManager.IsSignedIn(User))
+                {
+                    <a class="__nav-link-gray me-3" asp-controller="UserDetails" asp-action="Index">@User.Identity.Name</a>
+                    <a class="__nav-link-gray me-3" asp-controller="LogOut" asp-action="Index">Log Out</a>
+                }
+                else {
+                    <a class="__nav-link-gray me-3" asp-controller="Login" asp-action="Index">Login</a>
+                }
+            }
             <i class="__nav-link-gray me-3 fa-solid fa-cart-shopping"></i>
         </nav>
     </div>

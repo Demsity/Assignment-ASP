@@ -1,5 +1,7 @@
 using Assignment_ASP.Context;
+using Assignment_ASP.Models.Identity;
 using Assignment_ASP.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,24 @@ builder.Services.AddDbContext<IdentityContext>(x => x.UseSqlServer(builder.Confi
 // Services
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<AuthenticationService>();
+
+//Identity
+builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
+{
+    x.SignIn.RequireConfirmedEmail = false;
+    x.Password.RequiredLength = 8;
+    x.User.RequireUniqueEmail = true;
+    x.Password.RequireNonAlphanumeric = false;
+    x.Password.RequireDigit = true;
+
+}).AddEntityFrameworkStores<IdentityContext>();
+
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.LoginPath = "/login";
+    x.LogoutPath = "/";
+});
 
 
 var app = builder.Build();
