@@ -28,6 +28,7 @@ public class AuthenticationService
     public async Task<bool> RegisterUserAsync(UserRegisterViewModel viewModel)
     {
         var user = await CheckIfUserExsistsByEmailAsync(viewModel.Email);
+        var roleName = "user";
         if (user == null) 
         {
             try
@@ -44,6 +45,11 @@ public class AuthenticationService
 
                     await _identityContext.AspNetAdresses.AddAsync(_adress);
                     _identityContext.SaveChanges();
+                }
+
+                if (!await _userManager.Users.AnyAsync())
+                {
+                    roleName = "admin";
                 }
 
 
@@ -64,7 +70,7 @@ public class AuthenticationService
                 var result = await _userManager.CreateAsync(newUser, viewModel.Password);
                 if (result.Succeeded)
                 {
-
+                    await _userManager.AddToRoleAsync(newUser, roleName);
                     return true;
                 }
             }

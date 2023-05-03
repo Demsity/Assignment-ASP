@@ -1,10 +1,12 @@
 ﻿using Assignment_ASP.Models;
 using Assignment_ASP.Services;
 using Assignment_ASP.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment_ASP.Controllers;
 
+[Authorize(Roles = "admin")]
 public class DashboardController : Controller
 {
     private readonly ProductService productService;

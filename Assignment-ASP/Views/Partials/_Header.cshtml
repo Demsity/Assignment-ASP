@@ -5,7 +5,12 @@
             <button class="__menu_button" data-option="toggle" data-target="#menu"><i class="__nav-link-gray __header-menu-icon me-3 fa-solid fa-bars"></i></button>
         </nav>
         <nav id="menu" class="__flex-row hide __header-menu-links">
-            <a class="__nav-link me-3" asp-controller="Dashboard" asp-action="Index">DASHBOARD</a>
+            @{
+                if(signInManager.IsSignedIn(User) && User.IsInRole("admin"))
+                {
+                    <a class="__nav-link me-3" asp-controller="Dashboard" asp-action="Index">DASHBOARD</a>
+                }
+            }
             <a class="__nav-link me-3" asp-controller="Home" asp-action="Index">HOME</a>
             <a class="__nav-link me-3" asp-controller="Product" asp-action="Index">PRODUCTS</a>
             <a class="__nav-link me-3" asp-controller="Contact" asp-action="Index">CONTACT</a>
