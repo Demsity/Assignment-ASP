@@ -1,5 +1,5 @@
 ﻿using Assignment_ASP.Services;
-using Assignment_ASP.ViewModels;
+using Assignment_ASP.ViewModels.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Assignment_ASP.Controllers.Authentication

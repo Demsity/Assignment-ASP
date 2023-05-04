@@ -1,7 +1,7 @@
 ﻿using Assignment_ASP.Context;
 using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.Models.Identity;
-using Assignment_ASP.ViewModels;
+using Assignment_ASP.ViewModels.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

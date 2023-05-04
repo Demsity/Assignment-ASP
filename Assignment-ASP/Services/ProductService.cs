@@ -1,7 +1,7 @@
 ﻿using Assignment_ASP.Context;
 using Assignment_ASP.Models;
 using Assignment_ASP.Models.Entitys;
-using Assignment_ASP.ViewModels;
+using Assignment_ASP.ViewModels.Dashboard;
 using Microsoft.EntityFrameworkCore;
 
 namespace Assignment_ASP.Services;

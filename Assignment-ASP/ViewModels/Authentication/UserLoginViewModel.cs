@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Assignment_ASP.ViewModels
+namespace Assignment_ASP.ViewModels.Authentication
 {
     public class UserLoginViewModel
     {

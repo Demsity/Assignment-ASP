@@ -3,7 +3,7 @@ using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.Services;
 using System.ComponentModel.DataAnnotations;
 
-namespace Assignment_ASP.ViewModels;
+namespace Assignment_ASP.ViewModels.Dashboard;
 
 
 public class CreateProductViewModel
@@ -40,11 +40,11 @@ public class CreateProductViewModel
     [Required(ErrorMessage = "Please Choose atleast one category")]
     [Display(Name = "Categories (Choose one or more) *")]
     public List<CategoryModel> Categories { get; set; } = null!;
-    
+
 
     public static implicit operator ProductEntity(CreateProductViewModel viewModel)
     {
-        var entity = new ProductEntity 
+        var entity = new ProductEntity
         {
             Name = viewModel.Name,
             Description = viewModel.Description,
@@ -54,7 +54,7 @@ public class CreateProductViewModel
             StockTotal = viewModel.StockTotal,
         };
 
-        if (viewModel.Image != null) 
+        if (viewModel.Image != null)
         {
             entity.ImagePath = $"{Guid.NewGuid()}-{viewModel.Image.FileName}";
         }

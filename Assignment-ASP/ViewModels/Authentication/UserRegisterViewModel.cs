@@ -2,7 +2,7 @@
 using Assignment_ASP.Models.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace Assignment_ASP.ViewModels;
+namespace Assignment_ASP.ViewModels.Authentication;
 
 public class UserRegisterViewModel
 {

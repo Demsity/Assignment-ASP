@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["title"] = "Account";
+    BreadcrumbsModel bread = new BreadcrumbsModel()
+    {
+        CurrentPage = "ACCOUNT"
+    };
+}
+
+<partial name="../Partials/_Breadcrumbs.cshtml" model="bread" />
+
+<section class="container __profile-wrapper">
+    <img src="" alt="User profile Image">
+    <h4>Hello @User.Identity.Name</h4>
+    <img class="mt-5" src="/images/basic-bar-graph.png" alt="Placeholder Graph">
+</section>
