@@ -98,9 +98,4 @@ public class AuthenticationService
         }
         return false;
     }
-
-    public async Task<bool> LogOutUserAsync()
-    {
-        return false;
-    }
 }

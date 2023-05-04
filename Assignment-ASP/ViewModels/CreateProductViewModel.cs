@@ -34,7 +34,8 @@ public class CreateProductViewModel
     public int StockTotal { get; set; } = 0;
 
     [Display(Name = "Upload Image (Optional)")]
-    public string? ImagePath { get; set; }
+    [DataType(DataType.Upload)]
+    public IFormFile? Image { get; set; }
 
     [Required(ErrorMessage = "Please Choose atleast one category")]
     [Display(Name = "Categories (Choose one or more) *")]
@@ -43,7 +44,7 @@ public class CreateProductViewModel
 
     public static implicit operator ProductEntity(CreateProductViewModel viewModel)
     {
-        return new ProductEntity 
+        var entity = new ProductEntity 
         {
             Name = viewModel.Name,
             Description = viewModel.Description,
@@ -51,7 +52,13 @@ public class CreateProductViewModel
             Rating = viewModel.Rating,
             TotalRatings = viewModel.TotalRatings,
             StockTotal = viewModel.StockTotal,
-            ImagePath = viewModel.ImagePath,
         };
+
+        if (viewModel.Image != null) 
+        {
+            entity.ImagePath = $"{Guid.NewGuid()}-{viewModel.Image.FileName}";
+        }
+
+        return entity;
     }
 }

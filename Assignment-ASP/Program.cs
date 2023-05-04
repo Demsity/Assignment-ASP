@@ -17,6 +17,7 @@ builder.Services.AddDbContext<IdentityContext>(x => x.UseSqlServer(builder.Confi
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddScoped<ImageService>();
 
 //Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>(x =>

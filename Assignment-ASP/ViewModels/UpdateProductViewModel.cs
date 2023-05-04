@@ -33,7 +33,8 @@ namespace Assignment_ASP.ViewModels
         public int StockTotal { get; set; } = 0;
 
         [Display(Name = "Upload Image (Optional)")]
-        public string? ImagePath { get; set; }
+        [DataType(DataType.Upload)]
+        public IFormFile? Image { get; set; }
 
         [Required(ErrorMessage = "Please Choose atleast one category")]
         [Display(Name = "Categories (Choose one or more) *")]
@@ -42,17 +43,23 @@ namespace Assignment_ASP.ViewModels
 
         public static implicit operator ProductEntity(UpdateProductViewModel viewModel)
         {
-            return new ProductEntity
+            var entity = new ProductEntity
             {
-                Id = viewModel.Id,
                 Name = viewModel.Name,
                 Description = viewModel.Description,
                 Price = viewModel.Price,
                 Rating = viewModel.Rating,
                 TotalRatings = viewModel.TotalRatings,
                 StockTotal = viewModel.StockTotal,
-                ImagePath = viewModel.ImagePath,
             };
+
+            if (viewModel.Image != null)
+            {
+
+                entity.ImagePath = $"{Guid.NewGuid}-{viewModel.Image.FileName}";
+            }
+
+            return entity;
         }
 
         public static implicit operator UpdateProductViewModel(ProductModel model)
@@ -66,7 +73,6 @@ namespace Assignment_ASP.ViewModels
                 Rating = model.Rating,
                 TotalRatings = model.TotalRatings,
                 StockTotal = model.StockTotal,
-                ImagePath = model.ImagePath,
                 Categories = model.Categories,
             };
         }

@@ -11,11 +11,13 @@ public class ProductService
 
     private DataContext _context;
     private CategoryService _categoryService;
+    private readonly ImageService _imageService;
 
-    public ProductService(DataContext context, CategoryService categoryService)
+    public ProductService(DataContext context, CategoryService categoryService, ImageService imageService)
     {
         _context = context;
         _categoryService = categoryService;
+        _imageService = imageService;
     }
 
     public async Task<Boolean> SaveProductAsync(CreateProductViewModel model)
@@ -31,7 +33,10 @@ public class ProductService
                 _context.Products.Add(_product);
                 await _context.SaveChangesAsync();
 
-
+                if(model.Image != null) {
+                    await _imageService.SaveProductImageAsync(_product, model.Image);
+                }
+                
                 // Handle Categories
 
                 foreach (var category in model.Categories)
@@ -48,7 +53,6 @@ public class ProductService
                     }
                 }
 
-                
                 await _context.SaveChangesAsync();
                 return true;
                 
@@ -69,13 +73,7 @@ public class ProductService
                 // Update Information
                 if (!string.IsNullOrEmpty(model.Name) && !string.IsNullOrEmpty(model.Description) && model.Price > 0)
                 {
-                    _product.Name = model.Name;
-                    _product.Description = model.Description;
-                    _product.Price = model.Price;
-                    _product.Rating = model.Rating;
-                    _product.TotalRatings = model.TotalRatings;
-                    _product.StockTotal = model.StockTotal;
-                    _product.ImagePath = model.ImagePath;
+                    _product = model;
 
                     _context.Products.Update(_product);
                 }
@@ -116,7 +114,6 @@ public class ProductService
                 }
                 return true;
             }
-            return false;
         }
         return false;
     }
@@ -148,8 +145,6 @@ public class ProductService
         try
         {
             ProductModel _product = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId);
-
-
             if (_product != null)
             {
                 var lookUp = await _context.ProductCategories.Where(x => x.productId == _product.Id).ToListAsync();
