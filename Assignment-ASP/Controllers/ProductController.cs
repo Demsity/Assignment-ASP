@@ -16,13 +16,13 @@ public class ProductController : Controller
 
     public ProductViewModel ViewModel = new();
 
-    //SingleView
+    
     public IActionResult Index()
     {
         ViewData["Title"] = "Products";
         return View(ViewModel);
     }
-
+    //SingleView
     public async Task<IActionResult> Details(int id)
     {
         ViewData["Title"] = "Products - ";
