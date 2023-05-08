@@ -93,6 +93,34 @@ public class AuthenticationService
         return false;
     }
 
+    public async Task<bool> UpdateAdminAsync(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user != null) 
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles.Contains("admin"))
+            {
+                var result = await _userManager.RemoveFromRoleAsync(user, "admin");
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "user");
+                    return true;
+                }
+            } else
+            {
+                var result = await _userManager.AddToRoleAsync(user, "admin");
+                if (result.Succeeded)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, "user");
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+
     public async Task<bool> CreateFromDashboardUserAsync(CreateUserViewModel viewModel)
     {
         var user = await CheckIfUserExsistsByEmailAsync(viewModel.Email);

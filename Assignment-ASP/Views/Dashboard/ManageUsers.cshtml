@@ -11,19 +11,30 @@
     <div class="__dashboard-btn-wrapper">
         <a asp-action="CreateUser" class="__btn-red">New User</a>
     </div>
-    <div class="__list-wrapper">
+    <div class="__list-wrapper w-100">
         @foreach (var user in users)
         {
             var roles = await userManager.GetRolesAsync(user);
-            <div class="__item-box align-items-start">
+            <div class="w-100 __item-box">
                 <img class="__img-small" src="~/images/users/@user.ImageUrl" alt="@user.UserName" />
                 <p>@user.UserName</p>
                 @foreach (var role in roles)
                 {
                     <p>@role</p>
                 }
-                <a asp-action="UpdateUser" asp-route-id="@user.Id"><i class="fa-solid fa-pen-to-square"></i></a>
-                <button><i class="fa-light fa-trash"></i></button>
+                @if (roles.Contains("admin"))
+                {
+                    <form method="post" novalidate>
+                        <input type="text" name="userId" hidden value=@user.Id />
+                        <button type="submit"><small>Remove Admin</small></button>
+                    </form>
+                } else
+                {
+                    <form method="post" novalidate>
+                        <input type="text" name="userId" hidden value=@user.Id />
+                        <button type="submit"><small>Make Admin</small></button>
+                    </form>
+                }
             </div>
         }
     </div>

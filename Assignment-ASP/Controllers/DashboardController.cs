@@ -34,6 +34,21 @@ public class DashboardController : Controller
         return View();
     }
 
+    // Update Admin Status
+    [HttpPost]
+    public async Task<IActionResult> ManageUsers(string userId)
+    {
+        if (!userId.IsNullOrEmpty())
+        {
+            var result = await authenticationService.UpdateAdminAsync(userId);
+            if (result)
+            {
+                return View();
+            }
+        }
+        return View();
+    }
+
     public IActionResult CreateUser()
     {
         ViewData["Title"] = "Create User";
