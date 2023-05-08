@@ -28,7 +28,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
     x.Password.RequireNonAlphanumeric = false;
     x.Password.RequireDigit = true;
 
-}).AddEntityFrameworkStores<IdentityContext>();
+})  .AddEntityFrameworkStores<IdentityContext>()
+    .AddClaimsPrincipalFactory<AppUserClaimPrincipalFactory>();
 
 builder.Services.ConfigureApplicationCookie(x =>
 {

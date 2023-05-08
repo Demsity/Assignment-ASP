@@ -4,12 +4,14 @@
     {
         CurrentPage = "ACCOUNT"
     };
+
+    ViewData["Title"] = @User.FindFirst("FullName")?.Value;
 }
 
 <partial name="../Partials/_Breadcrumbs.cshtml" model="bread" />
 
 <section class="container __profile-wrapper">
     <img src="" alt="User profile Image">
-    <h4>Hello @User.Identity.Name</h4>
+    <h4>Hello @ViewData["Title"]</h4>
     <img class="mt-5" src="/images/basic-bar-graph.png" alt="Placeholder Graph">
 </section>
