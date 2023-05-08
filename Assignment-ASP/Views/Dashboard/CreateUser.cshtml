@@ -1,74 +1,84 @@
-﻿
+﻿@model CreateUserViewModel
+
 
 <section class="container __login-wrapper">
-    <div class="__dashboard-btn-wrapper">
-        <a asp-action="ManageUsers" class="__btn-red">Go back</a>
-    </div>
-    <form class="__contact-form container" action="">
-        <h3 class="__form-title">Create a user</h3>
+    <form enctype="multipart/form-data" class="__contact-form container" method="post" novalidate>
+        <h3 class="__form-title">Create new user</h3>
         <div class="__form-divider"></div>
         <div class="__form-wrapper">
             <div class="__form-group">
-                <label for="phone">First Name *</label>
-                <input class="__form-input-box" type="text" name="firstName">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="__form-input-box" />
+                <small class="text-danger mt-3"><span asp-validation-for="FirstName"></span></small>
             </div>
             <div class="__form-group">
-                <label for="company">Last Name *</label>
-                <input class="__form-input-box" type="text" name="lastName">
-            </div>
-        </div>
-        <div class="__form-wrapper">
-            <div class="__form-group">
-                <label for="email">Street Name *</label>
-                <input class="__form-input-box" type="text" name="streetName">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="__form-input-box" />
+                <small class="text-danger mt-3"><span asp-validation-for="LastName"></span></small>
             </div>
         </div>
         <div class="__form-wrapper">
             <div class="__form-group">
-                <label for="phone">Postal Code *</label>
-                <input class="__form-input-box" type="text" name="postalCode">
-            </div>
-            <div class="__form-group">
-                <label for="company">City *</label>
-                <input class="__form-input-box" type="text" name="City">
+                <label asp-for="StreetName"></label>
+                <input asp-for="StreetName" class="__form-input-box" />
+                <small class="text-danger mt-3"><span asp-validation-for="StreetName"></span></small>
             </div>
         </div>
         <div class="__form-wrapper">
             <div class="__form-group">
-                <label for="phone">Mobile (optional)</label>
-                <input class="__form-input-box" type="text" name="phone">
+                <label asp-for="PostalCode"></label>
+                <input asp-for="PostalCode" class="__form-input-box" />
+                <small class="text-danger mt-3"><span asp-validation-for="PostalCode"></span></small>
             </div>
             <div class="__form-group">
-                <label for="company">Company (optional)</label>
-                <input class="__form-input-box" type="text" name="company">
-            </div>
-        </div>
-        <div class="__form-wrapper">
-            <div class="__form-group">
-                <label for="email">Email *</label>
-                <input class="__form-input-box" type="email" name="email">
+                <label asp-for="City"></label>
+                <input asp-for="City" class="__form-input-box" />
+                <small class="text-danger mt-3"><span asp-validation-for="City"></span></small>
             </div>
         </div>
         <div class="__form-wrapper">
             <div class="__form-group">
-                <label for="phone">Password *</label>
-                <input class="__form-input-box" type="password" name="password">
+                <label asp-for="Mobile"></label>
+                <input asp-for="Mobile" class="__form-input-box" />
+            </div>
+            <div class="__form-group">
+                <label asp-for="CompanyName"></label>
+                <input asp-for="CompanyName" class="__form-input-box" />
             </div>
         </div>
         <div class="__form-wrapper">
             <div class="__form-group">
-                <label for="phone">Confirm Password *</label>
-                <input class="__form-input-box" type="password" name="passwordConfirm">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="__form-input-box" />
+                <small class="text-danger mt-3"><span asp-validation-for="Email"></span></small>
             </div>
         </div>
         <div class="__form-wrapper">
             <div class="__form-group">
-                <label for="phone">Upload Profile Image (Optional)</label>
-                <input class="__form-input-box" type="text" name="profile_img">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="__form-input-box" />
+                <small class="text-danger mt-3"><span asp-validation-for="Password"></span></small>
+            </div>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="__form-input-box" />
+                <small class="text-danger mt-3"><span asp-validation-for="ConfirmPassword"></span></small>
+            </div>
+        </div>
+        <div class="__form-remember">
+            <input asp-for="IsAdmin" class="__form-input-box" />
+            <label asp-for="IsAdmin" class="__remember-text"></label>
+        </div>
+        <div class="__form-wrapper">
+            <div class="__form-group">
+                <label asp-for="ImageFile"></label>
+                <input asp-for="ImageFile" class="__form-input-box" />
             </div>
         </div>
         <div class="__group-button-wrapper">
-            <button type="submit" class="__btn-red __form-submit-btn mt-5">Save</button>
+            <button type="submit" class="__btn-red __form-submit-btn mt-5">Register</button>
         </div>
     </form>
 </section>

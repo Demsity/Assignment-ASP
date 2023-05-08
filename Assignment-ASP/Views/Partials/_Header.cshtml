@@ -18,6 +18,7 @@
             @{
                 if (signInManager.IsSignedIn(User))
                 {
+                    <image class="__img-small" src="/images/users/@User.FindFirst("Image").Value" alt="@User.FindFirst("FullName").Value" />
                     <a class="__nav-link-gray me-3" asp-controller="Account" asp-action="Index">@User.Identity.Name</a>
                     <a class="__nav-link-gray me-3" asp-controller="LogOut" asp-action="Index">Log Out</a>
                 }

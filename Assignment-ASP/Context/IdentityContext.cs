@@ -37,7 +37,7 @@ public class IdentityContext : IdentityDbContext<AppUser>
             }
     );
         builder.Entity<AppUser>()
-            .Property(i => i.ImageUrl)
+            .Property(u => u.ImageUrl)
             .HasDefaultValue("default-user.jpg");
     }
 }

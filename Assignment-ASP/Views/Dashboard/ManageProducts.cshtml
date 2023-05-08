@@ -23,15 +23,8 @@
             foreach(var product in products)
             {
                     <div class="__item-box">
+                        <img class="__img-small" src="~/images/products/@product.ImagePath" />
                         <p>@product.Name</p>
-                        @{
-                            foreach(var category in product.Categories)
-                            {
-                                <div>
-                                    <p>@category.Name</p>
-                                </div>
-                            }
-                        }
                         <a asp-action="UpdateProduct" asp-route-id="@product.Id"><i class="fa-solid fa-pen-to-square"></i></a>
                         <form method="post" novalidate>
                             <input type="number" name="productId" hidden value="@product.Id" />

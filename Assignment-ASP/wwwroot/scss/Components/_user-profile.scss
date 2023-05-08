@@ -3,5 +3,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 10rem;
+    margin-top: 8rem;
+}
+
+.__img-small{
+    display: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    margin-right: 5px;
+
+    @include lg {
+        display: inline;
+    }
+}
+
+
+
+.__img-big{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px solid gray;
 }

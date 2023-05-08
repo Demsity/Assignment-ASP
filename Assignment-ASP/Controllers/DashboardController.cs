@@ -1,8 +1,11 @@
 ﻿using Assignment_ASP.Models;
+using Assignment_ASP.Models.Identity;
 using Assignment_ASP.Services;
 using Assignment_ASP.ViewModels.Dashboard;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Assignment_ASP.Controllers;
 
@@ -11,11 +14,12 @@ public class DashboardController : Controller
 {
     private readonly ProductService productService;
     private readonly CategoryService categoryService;
-
-    public DashboardController(ProductService productService, CategoryService categoryService)
+    private readonly AuthenticationService authenticationService;
+    public DashboardController(ProductService productService, CategoryService categoryService, AuthenticationService authenticationService)
     {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.authenticationService = authenticationService;
     }
 
     public IActionResult Index()
@@ -35,6 +39,25 @@ public class DashboardController : Controller
         ViewData["Title"] = "Create User";
         return View();
     }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateUser(CreateUserViewModel viewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            ViewData["Title"] = "Create User";
+            if (viewModel != null)
+            {
+                var result = await authenticationService.CreateFromDashboardUserAsync(viewModel);
+                if (result)
+                    return RedirectToAction("ManageUsers");
+            }
+        }
+
+        return View(viewModel);
+    }
+
+
 
     public IActionResult ManageProducts()
     {

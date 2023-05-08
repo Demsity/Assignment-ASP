@@ -11,7 +11,7 @@
 <partial name="../Partials/_Breadcrumbs.cshtml" model="bread" />
 
 <section class="container __profile-wrapper">
-    <img src="" alt="User profile Image">
-    <h4>Hello @ViewData["Title"]</h4>
+    <img class="__img-big" src="/images/users/@User.FindFirst("Image").Value" alt="@User.FindFirst("FullName").Value">
+    <h4 class="mt-5">Hello @ViewData["Title"]</h4>
     <img class="mt-5" src="/images/basic-bar-graph.png" alt="Placeholder Graph">
 </section>

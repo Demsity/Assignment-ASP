@@ -19,6 +19,9 @@ namespace Assignment_ASP.Models.Identity
 
             _customClaims.AddClaim(new Claim("FullName", $"{user.FirstName} {user.LastName}"));
 
+            
+            _customClaims.AddClaim(new Claim("Image", user.ImageUrl));
+
             var roles = await userManager.GetRolesAsync(user);
             _customClaims.AddClaims(roles.Select(x => new Claim(ClaimTypes.Role, x)));
 
