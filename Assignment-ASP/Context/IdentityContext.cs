@@ -36,5 +36,8 @@ public class IdentityContext : IdentityDbContext<AppUser>
                 ConcurrencyStamp = Guid.NewGuid().ToString()
             }
     );
+        builder.Entity<AppUser>()
+            .Property(i => i.ImageUrl)
+            .HasDefaultValue("default-user.jpg");
     }
 }

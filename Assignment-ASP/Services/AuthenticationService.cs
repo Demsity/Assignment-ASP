@@ -12,12 +12,14 @@ public class AuthenticationService
     private readonly UserManager<AppUser> _userManager;
     private readonly IdentityContext _identityContext;
     private readonly SignInManager<AppUser> _signInManager;
+    private readonly ImageService _imageService;
 
-    public AuthenticationService(UserManager<AppUser> userManager, IdentityContext identityContext, SignInManager<AppUser> signInManager)
+    public AuthenticationService(UserManager<AppUser> userManager, IdentityContext identityContext, SignInManager<AppUser> signInManager, ImageService imageService)
     {
         _userManager = userManager;
         _identityContext = identityContext;
         _signInManager = signInManager;
+        _imageService = imageService;
     }
 
     public async Task<AppUser> CheckIfUserExsistsByEmailAsync(string email)
@@ -59,13 +61,17 @@ public class AuthenticationService
                     FirstName = viewModel.FirstName,
                     LastName = viewModel.LastName,
                     Email = viewModel.Email,
-                    //image
                     CompanyName = viewModel.CompanyName,
                     PhoneNumber = viewModel.Mobile,
-                    AdressId = _adress.Id
+                    AdressId = _adress.Id,
 
-                };
+            };
 
+                if (viewModel.ImageFile != null)
+                {
+                    newUser.ImageUrl = $"{Guid.NewGuid()}-{viewModel.ImageFile.FileName}";
+                    await _imageService.SaveUserImageAsync(newUser, viewModel.ImageFile);
+                }
 
                 var result = await _userManager.CreateAsync(newUser, viewModel.Password);
                 if (result.Succeeded)

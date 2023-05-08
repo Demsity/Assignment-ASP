@@ -62,16 +62,22 @@ public class UserRegisterViewModel
 
     public static implicit operator AppUser(UserRegisterViewModel viewModel)
     {
-        return new AppUser
+        var _user = new AppUser
         {
             FirstName = viewModel.FirstName,
             LastName = viewModel.LastName,
             Email = viewModel.Email,
-            //image
             CompanyName = viewModel.CompanyName,
             PhoneNumber = viewModel.Mobile,
             PasswordHash = viewModel.Password,
         };
+
+        if(viewModel.ImageFile != null)
+        {
+            _user.ImageUrl = $"{Guid.NewGuid()}-{viewModel.ImageFile.FileName}";
+        }
+
+        return _user;
     }
 
     public static implicit operator AdressEntity(UserRegisterViewModel viewModel)
