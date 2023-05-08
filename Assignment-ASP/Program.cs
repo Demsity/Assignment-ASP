@@ -18,6 +18,7 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddScoped<ImageService>();
+builder.Services.AddScoped<ContactMessagesService>();
 
 //Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>(x =>

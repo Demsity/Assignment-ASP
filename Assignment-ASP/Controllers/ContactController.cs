@@ -1,16 +1,36 @@
-﻿using Assignment_ASP.ViewModels;
+﻿using Assignment_ASP.Services;
+using Assignment_ASP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Assignment_ASP.Controllers
-{
-    public class ContactController : Controller
-    {
+namespace Assignment_ASP.Controllers;
 
-        public ContactViewModel ViewModel = new();
-        public IActionResult Index()
+public class ContactController : Controller
+{
+    private readonly ContactMessagesService contactMessagesService;
+
+    public ContactController(ContactMessagesService contactMessagesService)
+    {
+        this.contactMessagesService = contactMessagesService;
+    }
+
+    public IActionResult Index()
+    {
+        ViewData["Title"] = "Contact";
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Index(ContactViewModel viewModel)
+    {
+        if (ModelState.IsValid) 
         {
-            ViewData["Title"] = "Contact";
-            return View(ViewModel);
+            if (await contactMessagesService.SaveMessageAsync(viewModel))
+            {
+                //success message
+                return RedirectToAction("Index");
+            }
         }
+        //fail Message
+        return View(viewModel);
     }
 }

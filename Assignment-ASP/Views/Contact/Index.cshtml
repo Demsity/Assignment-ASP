@@ -1,34 +1,43 @@
 ﻿@model ContactViewModel
+@{
+    BreadcrumbsModel bread = new()
+    {
+        CurrentPage = "Contact"    
+    };
+}
 
-<partial model="@Model.Breadcrumbs" name="../partials/_Breadcrumbs.cshtml" />
+<partial model="@bread" name="../partials/_Breadcrumbs.cshtml" />
 <!-- Contact Form -->
-<form class="__contact-form container" action="">
+<form class="__contact-form container" method="post" novalidate>
     <h3 class="__form-title">Write something</h3>
     <div class="__form-divider"></div>
     <div class="__form-wrapper">
         <div class="__form-group">
-            <label for="name">Your Name*</label>
-            <input class="__form-input-box" type="text" name="name" id="name">
+            <label asp-for="Name"></label>
+            <input class="__form-input-box" asp-for="Name" />
+            <small><span asp-validation-for="Name" class="text-danger mt-1"></span></small>
         </div>
         <div class="__form-group">
-            <label for="email">Your Email*</label>
-            <input class="__form-input-box" type="email" name="email" id="email">
-        </div>
-    </div>
-    <div class="__form-wrapper">
-        <div class="__form-group">
-            <label for="phone">Phone Number</label>
-            <input class="__form-input-box" type="text" name="phone" id="phone">
-        </div>
-        <div class="__form-group">
-            <label for="company">Company (optional)</label>
-            <input class="__form-input-box" type="text" name="company" id="company">
+            <label asp-for="Email"></label>
+            <input class="__form-input-box" asp-for="Email" />
+            <small><span asp-validation-for="Email" class="text-danger mt-1"></span></small>
         </div>
     </div>
     <div class="__form-wrapper">
         <div class="__form-group">
-            <label for="comment">Write Something</label>
-            <textarea class="__form-input-box" name="comment" id="" cols="48" rows="10"></textarea>
+            <label asp-for="PhoneNumber"></label>
+            <input class="__form-input-box" asp-for="PhoneNumber" />
+        </div>
+        <div class="__form-group">
+            <label asp-for="CompanyName"></label>
+            <input class="__form-input-box" asp-for="CompanyName" />
+        </div>
+    </div>
+    <div class="__form-wrapper">
+        <div class="__form-group">
+            <label asp-for="Message"></label>
+            <textarea class="__form-input-box" asp-for="Message"></textarea>
+            <small><span asp-validation-for="Message" class="text-danger mt-1"></span></small>
         </div>
     </div>
     <div class="__form-remember">
