@@ -13,6 +13,7 @@ public class DataContext : DbContext
     public DbSet<CategoryEntity> Categories { get; set; }
     public DbSet<ProductCategoryEntity> ProductCategories { get; set; }
     public DbSet<ContactMessageEntity> ContactMessages { get; set; }
+    public DbSet<NewsletterEntity> Newsletters { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,8 +1,10 @@
-﻿<section class="__newsletter-section">
+﻿@model HomeViewModel
+<section class="__newsletter-section">
     <div class="container __newsletter-wrapper">
-        <form action="" class="__newsletter-form">
-            <input type="email" placeholder="Enter your email here">
+        <form method="post" novalidate class="__newsletter-form">
+            <input asp-for="NewsletterEmail" placeholder="Enter your email here">
             <button class="__btn-red __button">SUBSCRIBE FOR NEWSLETTER</button>
         </form>
+        <small><span asp-validation-for="NewsletterEmail" class="text-danger d-flex justify-content-center mt-3"></span></small>
     </div>
 </section>

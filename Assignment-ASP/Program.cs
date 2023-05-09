@@ -19,6 +19,7 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddScoped<ImageService>();
 builder.Services.AddScoped<ContactMessagesService>();
+builder.Services.AddScoped<NewsletterService>();
 
 //Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>(x =>

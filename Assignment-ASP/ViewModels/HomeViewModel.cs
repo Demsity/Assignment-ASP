@@ -1,9 +1,18 @@
 ﻿using Assignment_ASP.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Assignment_ASP.ViewModels;
 
 public class HomeViewModel
 {
+
+    [DataType(DataType.EmailAddress)]
+    [Required(ErrorMessage = "You must enter an email adress (ex. domain@domain.com)")]
+    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "You must provide a Email Adress (ex. domain@domain.com)")]
+    public string NewsletterEmail { get; set; } = null!;
+
+
+
     public HeroModel Hero = new HeroModel()
     {
         TitleSmall = "WELCOME TO bmarketo SHOP",

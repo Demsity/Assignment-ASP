@@ -1,7 +1,8 @@
 ﻿@model HomeViewModel
 
-<partial name="../partials/_HeroSection.cshtml" />
 
+<partial name="../partials/_HeroSection.cshtml" />
+<div class="text-danger d-flex justify-content-center mt-3" asp-validation-summary="All"></div>
 <partial model=@Model.ProductDisplay; name="../partials/_ProductDisplaySection.cshtml" />
 
 <partial name="../partials/_PromotionSection.cshtml" />
