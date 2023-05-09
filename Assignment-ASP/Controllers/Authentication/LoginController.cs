@@ -16,7 +16,6 @@ namespace Assignment_ASP.Controllers.Authentication
 
         public IActionResult Index()
         {
-            ViewData["Title"] = "Login";
             return View();
         }
 
@@ -25,7 +24,6 @@ namespace Assignment_ASP.Controllers.Authentication
         {
             if (ModelState.IsValid)
             {
-                ViewData["Title"] = "Register";
                 var result = await _authenticationService.LogInUserAsync(viewModel);
                 if (result)
                 {

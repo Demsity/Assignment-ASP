@@ -16,14 +16,12 @@ public class RegisterController : Controller
 
     public IActionResult Index()
     {
-        ViewData["Title"] = "Register";
         return View();
     }
 
     [HttpPost]
     public async Task<IActionResult> Index(UserRegisterViewModel viewModel)
     {
-        ViewData["Title"] = "Register";
         if (ModelState.IsValid)
         {
             

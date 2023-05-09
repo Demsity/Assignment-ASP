@@ -15,7 +15,6 @@ public class ContactController : Controller
 
     public IActionResult Index()
     {
-        ViewData["Title"] = "Contact";
         return View();
     }
 

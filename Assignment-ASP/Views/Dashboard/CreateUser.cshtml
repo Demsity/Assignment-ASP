@@ -1,7 +1,12 @@
 ﻿@model CreateUserViewModel
-
+@{
+    ViewData["Title"] = "Create User";
+}
 
 <section class="container __login-wrapper">
+    <div class="__dashboard-btn-wrapper">
+        <a asp-action="ManageUsers" class="__btn-red">Go back</a>
+    </div>
     <form enctype="multipart/form-data" class="__contact-form container" method="post" novalidate>
         <div class="text-danger d-flex justify-content-center mt-3" asp-validation-summary="All"></div>
         <h3 class="__form-title">Create new user</h3>

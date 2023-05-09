@@ -24,13 +24,11 @@ public class DashboardController : Controller
 
     public IActionResult Index()
     {
-        ViewData["Title"] = "Dashboard";
         return View();
     }
 
     public IActionResult ManageUsers()
     {
-        ViewData["Title"] = "Manage Users";
         return View();
     }
 
@@ -51,7 +49,6 @@ public class DashboardController : Controller
 
     public IActionResult CreateUser()
     {
-        ViewData["Title"] = "Create User";
         return View();
     }
 
@@ -60,7 +57,6 @@ public class DashboardController : Controller
     {
         if (ModelState.IsValid)
         {
-            ViewData["Title"] = "Create User";
             if (viewModel != null)
             {
                 var result = await authenticationService.CreateFromDashboardUserAsync(viewModel);
@@ -80,7 +76,6 @@ public class DashboardController : Controller
 
     public IActionResult ManageProducts()
     {
-        ViewData["Title"] = "Manage Products";
         return View();
     }
 
@@ -102,7 +97,6 @@ public class DashboardController : Controller
 
     public async Task<IActionResult> CreateProduct()
     {
-        ViewData["Title"] = "Create Product";
         var viewModel = new CreateProductViewModel
         {
             Categories = await categoryService.GetAllCategoriesAsync()
@@ -114,7 +108,6 @@ public class DashboardController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateProduct(CreateProductViewModel viewModel)
     {
-        ViewData["Title"] = "Create Product";
         if (ModelState.IsValid)
         {
             var result = await productService.SaveProductAsync(viewModel);
@@ -130,7 +123,6 @@ public class DashboardController : Controller
 
     public async Task<IActionResult> UpdateProduct(int Id)
     {
-        ViewData["Title"] = "Update Product";
         if (Id > 0)
         {
             UpdateProductViewModel product = await productService.GetProductById(Id);
@@ -145,7 +137,6 @@ public class DashboardController : Controller
     [HttpPost]
     public async Task<IActionResult> UpdateProduct(UpdateProductViewModel viewModel)
     {
-        ViewData["Title"] = "Update Product";
         if (ModelState.IsValid)
         {
             var result = await productService.UpdateProductAsync(viewModel);

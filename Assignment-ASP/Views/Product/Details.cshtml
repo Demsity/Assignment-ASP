@@ -1,6 +1,8 @@
 ﻿@model ProductModel
 
 @{
+    ViewData["Title"] = Model.Name;
+
     BreadcrumbsModel breadCrumbs = new()
     {
         CurrentPage = Model.Name.ToUpper()
