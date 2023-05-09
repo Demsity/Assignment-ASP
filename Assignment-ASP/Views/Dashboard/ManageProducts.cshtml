@@ -3,13 +3,6 @@
 }
 
 <partial name="../partials/_Breadcrumbs.cshtml" />
-@if (TempData["Message"] != null)
-{
-    <!-- Change this later -->
-    <div class="alert alert-success alert-dismissable">
-        <strong>@TempData["Message"]</strong>
-    </div>
-}
 <section class="container __dashboard-wrapper">
     <div class="__dashboard-btn-wrapper">
         <a asp-action="Index" class="__btn-red">Return to Dashboard</a>
@@ -17,6 +10,7 @@
     <div class="__dashboard-btn-wrapper">
         <a asp-action="CreateProduct" class="__btn-red">New Product</a>
     </div>
+    <div class="text-danger d-flex justify-content-center mt-3" asp-validation-summary="All"></div>
     <div class="__list-wrapper w-100">
         @{
             if (products != null)

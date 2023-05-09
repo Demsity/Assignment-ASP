@@ -24,11 +24,17 @@ public class RegisterController : Controller
     public async Task<IActionResult> Index(UserRegisterViewModel viewModel)
     {
         ViewData["Title"] = "Register";
-        if (viewModel != null)
+        if (ModelState.IsValid)
         {
-            var result = await _authenticationService.RegisterUserAsync(viewModel);
-            if (result)
-                return RedirectToAction("Index", "Login");
+            
+            if (viewModel != null)
+            {
+                var result = await _authenticationService.RegisterUserAsync(viewModel);
+                if (result)
+                    return RedirectToAction("Index", "Login");
+            }
+            ModelState.AddModelError("Model", "Something went wrong! Please contact customer support");
+            return View(viewModel);
         }
 
         return View(viewModel);

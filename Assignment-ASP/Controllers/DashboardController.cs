@@ -67,6 +67,10 @@ public class DashboardController : Controller
                 if (result)
                     return RedirectToAction("ManageUsers");
             }
+
+            ModelState.AddModelError("Model", "Something went wrong! Could not register user");
+            return View(viewModel);
+
         }
 
         return View(viewModel);
@@ -88,12 +92,11 @@ public class DashboardController : Controller
         {
             if (await productService.DeleteProduct(productId))
             {
-                TempData["Message"] = "Product has been deleted";
                 return RedirectToAction("ManageProducts");
             }
         }
 
-        TempData["Message"] = "Product could not be deleted";
+        ModelState.AddModelError("Model", "Something went wrong! Could not delete product");
         return RedirectToAction("ManageProducts");
     }
 
@@ -117,7 +120,11 @@ public class DashboardController : Controller
             var result = await productService.SaveProductAsync(viewModel);
             if (result)
                 return RedirectToAction("ManageProducts");
+
+            ModelState.AddModelError("Model", "Something went wrong! Could not create the product");
+            return View(viewModel);
         }
+
         return View(viewModel);
     }
 
@@ -129,8 +136,9 @@ public class DashboardController : Controller
             UpdateProductViewModel product = await productService.GetProductById(Id);
             if (product != null)
                 return View(product);
+
         }
-        TempData["Message"] = "Product was not found";
+        ModelState.AddModelError("Model", "Something went wrong! Could not find the product");
         return View("ManageProducts");
     }
 
@@ -143,6 +151,10 @@ public class DashboardController : Controller
             var result = await productService.UpdateProductAsync(viewModel);
             if (result)
                 return RedirectToAction("ManageProducts");
+
+            ModelState.AddModelError("Model", "Something went wrong! Could not update the product");
+            return View(viewModel);
+
         }
         return View(viewModel);
     }

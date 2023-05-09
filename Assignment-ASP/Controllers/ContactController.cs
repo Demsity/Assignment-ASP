@@ -26,11 +26,11 @@ public class ContactController : Controller
         {
             if (await contactMessagesService.SaveMessageAsync(viewModel))
             {
-                //success message
-                return RedirectToAction("Index");
+                ModelState.AddModelError("Success", "Your message has been sent!");
+                return View();
             }
         }
-        //fail Message
+        ModelState.AddModelError("Model", "Could not send message");
         return View(viewModel);
     }
 }

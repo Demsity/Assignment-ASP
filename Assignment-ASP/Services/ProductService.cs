@@ -73,7 +73,12 @@ public class ProductService
                 // Update Information
                 if (!string.IsNullOrEmpty(model.Name) && !string.IsNullOrEmpty(model.Description) && model.Price > 0)
                 {
-                    _product = model;
+                    _product.Name = model.Name;
+                    _product.Description = model.Description;
+                    _product.Price = model.Price;
+                    _product.Rating = model.Rating;
+                    _product.TotalRatings = model.TotalRatings;
+                    _product.StockTotal = model.StockTotal;
 
                     _context.Products.Update(_product);
                 }
@@ -81,7 +86,6 @@ public class ProductService
                 await _context.SaveChangesAsync();
 
                 // Handle Categories
-                // Looks like shit, refactor
                 if (model.Categories != null)
                 {
                     foreach (var category in model.Categories)

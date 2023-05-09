@@ -5,6 +5,7 @@ using Assignment_ASP.ViewModels.Authentication;
 using Assignment_ASP.ViewModels.Dashboard;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Assignment_ASP.Services;
 
@@ -30,64 +31,66 @@ public class AuthenticationService
 
     public async Task<bool> RegisterUserAsync(UserRegisterViewModel viewModel)
     {
-        var user = await CheckIfUserExsistsByEmailAsync(viewModel.Email);
-        var roleName = "user";
-        if (user == null) 
+        if (!viewModel.Email.IsNullOrEmpty())
         {
-            try
+            var user = await CheckIfUserExsistsByEmailAsync(viewModel.Email);
+            var roleName = "user";
+            if (user == null)
             {
-                var _adress = await _identityContext.AspNetAdresses.Where(x => x.StreetName == viewModel.StreetName && x.PostalCode == viewModel.PostalCode && x.City == viewModel.City).FirstOrDefaultAsync();
-                if (_adress == null) 
+                try
                 {
-                    _adress = new AdressEntity()
+                    var _adress = await _identityContext.AspNetAdresses.Where(x => x.StreetName == viewModel.StreetName && x.PostalCode == viewModel.PostalCode && x.City == viewModel.City).FirstOrDefaultAsync();
+                    if (_adress == null)
                     {
-                        PostalCode = viewModel.PostalCode,
-                        StreetName = viewModel.StreetName,
-                        City = viewModel.City,
+                        _adress = new AdressEntity()
+                        {
+                            PostalCode = viewModel.PostalCode,
+                            StreetName = viewModel.StreetName,
+                            City = viewModel.City,
+                        };
+
+                        await _identityContext.AspNetAdresses.AddAsync(_adress);
+                        _identityContext.SaveChanges();
+                    }
+
+                    if (!await _userManager.Users.AnyAsync())
+                    {
+                        roleName = "admin";
+                    }
+
+
+                    AppUser newUser = new AppUser()
+                    {
+                        UserName = viewModel.Email,
+                        FirstName = viewModel.FirstName,
+                        LastName = viewModel.LastName,
+                        Email = viewModel.Email,
+                        CompanyName = viewModel.CompanyName,
+                        PhoneNumber = viewModel.Mobile,
+                        AdressId = _adress.Id,
+                        ImageUrl = "default-user.jpg"
+
                     };
 
-                    await _identityContext.AspNetAdresses.AddAsync(_adress);
-                    _identityContext.SaveChanges();
+                    if (viewModel.ImageFile != null)
+                    {
+                        newUser.ImageUrl = $"{Guid.NewGuid()}-{viewModel.ImageFile.FileName}";
+                        await _imageService.SaveUserImageAsync(newUser, viewModel.ImageFile);
+                    }
+
+                    var result = await _userManager.CreateAsync(newUser, viewModel.Password);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(newUser, roleName);
+                        return true;
+                    }
                 }
-
-                if (!await _userManager.Users.AnyAsync())
+                catch
                 {
-                    roleName = "admin";
-                }
+                    return false;
 
-
-                AppUser newUser = new AppUser()
-                {
-                    UserName = viewModel.Email,
-                    FirstName = viewModel.FirstName,
-                    LastName = viewModel.LastName,
-                    Email = viewModel.Email,
-                    CompanyName = viewModel.CompanyName,
-                    PhoneNumber = viewModel.Mobile,
-                    AdressId = _adress.Id,
-                    ImageUrl = "default-user.jpg"
-
-            };
-
-                if (viewModel.ImageFile != null)
-                {
-                    newUser.ImageUrl = $"{Guid.NewGuid()}-{viewModel.ImageFile.FileName}";
-                    await _imageService.SaveUserImageAsync(newUser, viewModel.ImageFile);
-                }
-
-                var result = await _userManager.CreateAsync(newUser, viewModel.Password);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(newUser, roleName);
-                    return true;
                 }
             }
-            catch
-            {
-                return false;
-
-            }
-
         }
 
         return false;
