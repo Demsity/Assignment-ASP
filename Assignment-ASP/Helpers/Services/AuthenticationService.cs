@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Assignment_ASP.Services;
+namespace Assignment_ASP.Helpers.Services;
 
 public class AuthenticationService
 {
@@ -99,7 +99,7 @@ public class AuthenticationService
     public async Task<bool> UpdateAdminAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
-        if (user != null) 
+        if (user != null)
         {
             var roles = await _userManager.GetRolesAsync(user);
             if (roles.Contains("admin"))
@@ -110,7 +110,8 @@ public class AuthenticationService
                     await _userManager.AddToRoleAsync(user, "user");
                     return true;
                 }
-            } else
+            }
+            else
             {
                 var result = await _userManager.AddToRoleAsync(user, "admin");
                 if (result.Succeeded)
@@ -120,7 +121,7 @@ public class AuthenticationService
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -174,7 +175,7 @@ public class AuthenticationService
                 var result = await _userManager.CreateAsync(newUser, viewModel.Password);
                 if (result.Succeeded)
                 {
-                    
+
                     await _userManager.AddToRoleAsync(newUser, roleName);
                     return true;
                 }
@@ -193,7 +194,7 @@ public class AuthenticationService
     public async Task<bool> LogInUserAsync(UserLoginViewModel viewModel)
     {
         var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == viewModel.Email);
-        if (appUser != null) 
+        if (appUser != null)
         {
             var result = await _signInManager.PasswordSignInAsync(appUser, viewModel.Password, viewModel.RememberMe, false);
             if (result.Succeeded)

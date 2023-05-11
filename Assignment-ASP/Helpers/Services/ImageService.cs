@@ -2,7 +2,7 @@
 using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.Models.Identity;
 
-namespace Assignment_ASP.Services;
+namespace Assignment_ASP.Helpers.Services;
 
 public class ImageService
 {
@@ -20,7 +20,8 @@ public class ImageService
             string filePath = $"{_environment.WebRootPath}/images/products/{product.ImagePath}";
             await file.CopyToAsync(new FileStream(filePath, FileMode.Create));
             return true;
-        } catch
+        }
+        catch
         {
             return false;
         }

@@ -1,5 +1,5 @@
-﻿using Assignment_ASP.Models;
-using Assignment_ASP.Services;
+﻿using Assignment_ASP.Helpers.Services;
+using Assignment_ASP.Models;
 using Assignment_ASP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -36,7 +36,7 @@ public class HomeController : Controller
                 return View(viewModel);
             }
         }
-        ModelState.AddModelError("Model", "Could not subscribe to newsletter");
+        ModelState.AddModelError("Model", "Could not subscribe to newsletter, Maybe you are allready subscribed?");
         return View(viewModel);
     }
 }
