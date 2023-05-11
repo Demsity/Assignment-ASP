@@ -3,7 +3,7 @@ using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Assignment_ASP.Services;
+namespace Assignment_ASP.Helpers.Services;
 
 public class ContactMessagesService
 {

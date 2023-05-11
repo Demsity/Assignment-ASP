@@ -3,7 +3,7 @@ using Assignment_ASP.Models;
 using Assignment_ASP.Models.Entitys;
 using Microsoft.EntityFrameworkCore;
 
-namespace Assignment_ASP.Services;
+namespace Assignment_ASP.Helpers.Services;
 
 public class CategoryService
 {
@@ -17,8 +17,8 @@ public class CategoryService
     public async Task<List<CategoryModel>> GetAllCategoriesAsync()
     {
         var _categories = new List<CategoryModel>();
-        foreach (var category in await _context.Categories.ToListAsync()) 
-        { 
+        foreach (var category in await _context.Categories.ToListAsync())
+        {
             _categories.Add(category);
         }
         return _categories;

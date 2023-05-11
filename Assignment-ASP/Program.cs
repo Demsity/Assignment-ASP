@@ -1,6 +1,6 @@
 using Assignment_ASP.Context;
+using Assignment_ASP.Helpers.Services;
 using Assignment_ASP.Models.Identity;
-using Assignment_ASP.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

@@ -3,7 +3,7 @@ using Assignment_ASP.Models.Entitys;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Assignment_ASP.Services;
+namespace Assignment_ASP.Helpers.Services;
 
 public class NewsletterService
 {
@@ -21,12 +21,12 @@ public class NewsletterService
 
     public async Task<bool> SaveNewsletterEntry(string email)
     {
-        if (!email.IsNullOrEmpty()) 
+        if (!email.IsNullOrEmpty())
         {
             var allReadyExsists = await dataContext.Newsletters.Where(x => x.Email == email).FirstOrDefaultAsync();
-            if (allReadyExsists == null) 
+            if (allReadyExsists == null)
             {
-                dataContext.Newsletters.Add(new NewsletterEntity() { Email = email});
+                dataContext.Newsletters.Add(new NewsletterEntity() { Email = email });
                 await dataContext.SaveChangesAsync();
                 return true;
             }

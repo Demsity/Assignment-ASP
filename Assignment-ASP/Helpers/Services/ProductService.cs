@@ -4,7 +4,7 @@ using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.ViewModels.Dashboard;
 using Microsoft.EntityFrameworkCore;
 
-namespace Assignment_ASP.Services;
+namespace Assignment_ASP.Helpers.Services;
 
 public class ProductService
 {
@@ -20,11 +20,11 @@ public class ProductService
         _imageService = imageService;
     }
 
-    public async Task<Boolean> SaveProductAsync(CreateProductViewModel model)
+    public async Task<bool> SaveProductAsync(CreateProductViewModel model)
     {
         if (model != null)
         {
-            
+
             var _findProduct = await _context.Products.FirstOrDefaultAsync(x => x.Name == model.Name);
             if (_findProduct == null)
             {
@@ -33,15 +33,16 @@ public class ProductService
                 _context.Products.Add(_product);
                 await _context.SaveChangesAsync();
 
-                if(model.Image != null) {
+                if (model.Image != null)
+                {
                     await _imageService.SaveProductImageAsync(_product, model.Image);
                 }
-                
+
                 // Handle Categories
 
                 foreach (var category in model.Categories)
                 {
-                    if(category.isActive == true)
+                    if (category.isActive == true)
                     {
                         ProductCategoryEntity _category = new()
                         {
@@ -55,8 +56,8 @@ public class ProductService
 
                 await _context.SaveChangesAsync();
                 return true;
-                
-            } 
+
+            }
 
         }
 
@@ -65,10 +66,10 @@ public class ProductService
 
     public async Task<bool> UpdateProductAsync(UpdateProductViewModel model)
     {
-        if(model != null)
+        if (model != null)
         {
             var _product = await _context.Products.FirstOrDefaultAsync(x => x.Id == model.Id);
-            if( _product != null)
+            if (_product != null)
             {
                 // Update Information
                 if (!string.IsNullOrEmpty(model.Name) && !string.IsNullOrEmpty(model.Description) && model.Price > 0)
@@ -103,12 +104,13 @@ public class ProductService
                             {
                                 _context.ProductCategories.Add(_category);
 
-                            } 
-                        } else
+                            }
+                        }
+                        else
                         {
                             if (lookUp != null)
                             {
-                                
+
                                 _context.ProductCategories.Remove(lookUp);
                             }
                         }
@@ -135,11 +137,12 @@ public class ProductService
                     await _context.SaveChangesAsync();
                     return true;
                 }
-            } catch
+            }
+            catch
             {
                 return false;
             }
-            
+
         }
         return false;
     }
@@ -155,7 +158,7 @@ public class ProductService
                 List<CategoryModel> _allCategories = await _categoryService.GetAllCategoriesAsync();
                 var _categories = new List<CategoryModel>();
 
-                foreach (var category in _allCategories) 
+                foreach (var category in _allCategories)
                 {
                     foreach (var entry in lookUp)
                     {
@@ -171,17 +174,18 @@ public class ProductService
                 return _product;
             }
             return null;
-        } catch
+        }
+        catch
         {
             return null;
         }
-        
+
     }
 
     public async Task<List<ProductModel>> GetProducts(int quantity)
     {
         List<ProductModel> _products = new List<ProductModel>();
-        foreach (var productEntity in await _context.Products.Include(x => x.Categories).Take(quantity).ToListAsync()) 
+        foreach (var productEntity in await _context.Products.Include(x => x.Categories).Take(quantity).ToListAsync())
         {
             var productModel = new ProductModel
             {
@@ -200,7 +204,7 @@ public class ProductService
         return _products;
     }
 
-    public async Task<List<ProductModel>> GetAllProducts() 
+    public async Task<List<ProductModel>> GetAllProducts()
     {
 
 

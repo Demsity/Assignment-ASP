@@ -1,5 +1,5 @@
-﻿using Assignment_ASP.Models;
-using Assignment_ASP.Services;
+﻿using Assignment_ASP.Helpers.Services;
+using Assignment_ASP.Models;
 using Assignment_ASP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
