@@ -29,6 +29,7 @@ builder.Services.AddScoped<ContactMessageRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<ProductCategoryRepository>();
 builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<AdressRepository>();
 
 //Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
