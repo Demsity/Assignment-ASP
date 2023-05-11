@@ -1,4 +1,5 @@
 ﻿using Assignment_ASP.Context;
+using Assignment_ASP.Helpers.Repositories;
 using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -7,24 +8,23 @@ namespace Assignment_ASP.Helpers.Services;
 
 public class ContactMessagesService
 {
-    private readonly DataContext _context;
+    private readonly ContactMessageRepository _contactMessageRepo;
 
-    public ContactMessagesService(DataContext context)
+    public ContactMessagesService(ContactMessageRepository contactMessageRepo)
     {
-        _context = context;
+        _contactMessageRepo = contactMessageRepo;
     }
 
-    public async Task<List<ContactMessageEntity>> GetAllMessages()
+    public async Task<IEnumerable<ContactMessageEntity>> GetAllMessages()
     {
-        return await _context.ContactMessages.ToListAsync();
+        return await _contactMessageRepo.GetAllAsync();
     }
 
     public async Task<bool> SaveMessageAsync(ContactViewModel viewModel)
     {
-        var result = await _context.ContactMessages.AddAsync(viewModel);
+        var result = await _contactMessageRepo.AddAsync(viewModel);
         if (result != null)
         {
-            _context.SaveChanges();
             return true;
         }
         return false;

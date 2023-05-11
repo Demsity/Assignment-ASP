@@ -1,4 +1,5 @@
 ﻿using Assignment_ASP.Context;
+using Assignment_ASP.Helpers.Repositories;
 using Assignment_ASP.Models.Entitys;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,27 +8,26 @@ namespace Assignment_ASP.Helpers.Services;
 
 public class NewsletterService
 {
-    private readonly DataContext dataContext;
+    private readonly NewsletterRepository _newsletterRepo;
 
-    public NewsletterService(DataContext dataContext)
+    public NewsletterService(NewsletterRepository newsletterRepo)
     {
-        this.dataContext = dataContext;
+        _newsletterRepo = newsletterRepo;
     }
 
-    public async Task<List<NewsletterEntity>> GetNewslettersAsync()
+    public async Task<IEnumerable<NewsletterEntity>> GetNewslettersAsync()
     {
-        return await dataContext.Newsletters.ToListAsync();
+        return await _newsletterRepo.GetAllAsync();
     }
 
     public async Task<bool> SaveNewsletterEntry(string email)
     {
         if (!email.IsNullOrEmpty())
         {
-            var allReadyExsists = await dataContext.Newsletters.Where(x => x.Email == email).FirstOrDefaultAsync();
+            var allReadyExsists = await _newsletterRepo.GetAsync(x => x.Email == email);
             if (allReadyExsists == null)
             {
-                dataContext.Newsletters.Add(new NewsletterEntity() { Email = email });
-                await dataContext.SaveChangesAsync();
+                await _newsletterRepo.AddAsync(new NewsletterEntity { Email = email });
                 return true;
             }
         }

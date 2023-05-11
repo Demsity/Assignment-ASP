@@ -36,7 +36,7 @@ public class HomeController : Controller
                 return View(viewModel);
             }
         }
-        ModelState.AddModelError("Model", "Could not subscribe to newsletter");
+        ModelState.AddModelError("Model", "Could not subscribe to newsletter, Maybe you are allready subscribed?");
         return View(viewModel);
     }
 }

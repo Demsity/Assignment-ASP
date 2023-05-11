@@ -1,23 +1,25 @@
-﻿using Assignment_ASP.Context;
+﻿using Assignment_ASP.Helpers.Repositories;
 using Assignment_ASP.Models;
 using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.ViewModels.Dashboard;
-using Microsoft.EntityFrameworkCore;
 
 namespace Assignment_ASP.Helpers.Services;
 
 public class ProductService
 {
 
-    private DataContext _context;
-    private CategoryService _categoryService;
+  
+    private readonly CategoryService _categoryService;
+    private readonly ProductRepository _productRepo;
+    private readonly ProductCategoryRepository _productCategoryRepo;
     private readonly ImageService _imageService;
 
-    public ProductService(DataContext context, CategoryService categoryService, ImageService imageService)
+    public ProductService(CategoryService categoryService, ImageService imageService, ProductCategoryRepository productCategoryRepo, ProductRepository productRepo)
     {
-        _context = context;
         _categoryService = categoryService;
         _imageService = imageService;
+        _productCategoryRepo = productCategoryRepo;
+        _productRepo = productRepo;
     }
 
     public async Task<bool> SaveProductAsync(CreateProductViewModel model)
@@ -25,14 +27,14 @@ public class ProductService
         if (model != null)
         {
 
-            var _findProduct = await _context.Products.FirstOrDefaultAsync(x => x.Name == model.Name);
+            var _findProduct = await _productRepo.GetAsync(x => x.Name == model.Name);
             if (_findProduct == null)
             {
                 // If product dosent exists, make a new
                 ProductEntity _product = model;
-                _context.Products.Add(_product);
-                await _context.SaveChangesAsync();
+                _product = await _productRepo.AddAsync(_product);
 
+                // Handel Images
                 if (model.Image != null)
                 {
                     await _imageService.SaveProductImageAsync(_product, model.Image);
@@ -44,23 +46,13 @@ public class ProductService
                 {
                     if (category.isActive == true)
                     {
-                        ProductCategoryEntity _category = new()
-                        {
-                            productId = _product.Id,
-                            categoryId = category.Id
-
-                        };
-                        _context.ProductCategories.Add(_category);
+                        await _productCategoryRepo.AddAsync(new ProductCategoryEntity { productId = _product.Id, categoryId = category.Id});
                     }
                 }
 
-                await _context.SaveChangesAsync();
                 return true;
-
             }
-
         }
-
         return false;
     }
 
@@ -68,7 +60,7 @@ public class ProductService
     {
         if (model != null)
         {
-            var _product = await _context.Products.FirstOrDefaultAsync(x => x.Id == model.Id);
+            var _product = await _productRepo.GetAsync(x => x.Id == model.Id);
             if (_product != null)
             {
                 // Update Information
@@ -81,17 +73,16 @@ public class ProductService
                     _product.TotalRatings = model.TotalRatings;
                     _product.StockTotal = model.StockTotal;
 
-                    _context.Products.Update(_product);
+                    await _productRepo.UpdateAsync(_product);
                 }
 
-                await _context.SaveChangesAsync();
 
                 // Handle Categories
                 if (model.Categories != null)
                 {
                     foreach (var category in model.Categories)
                     {
-                        var lookUp = await _context.ProductCategories.FirstOrDefaultAsync(x => x.productId == model.Id && x.categoryId == category.Id);
+                        var lookUp = await _productCategoryRepo.GetAsync(x => x.productId == _product.Id);
                         var _category = new ProductCategoryEntity
                         {
                             productId = model.Id,
@@ -102,8 +93,7 @@ public class ProductService
                         {
                             if (lookUp == null)
                             {
-                                _context.ProductCategories.Add(_category);
-
+                                await _productCategoryRepo.AddAsync(_category);
                             }
                         }
                         else
@@ -111,12 +101,10 @@ public class ProductService
                             if (lookUp != null)
                             {
 
-                                _context.ProductCategories.Remove(lookUp);
+                                await _productCategoryRepo.DeleteAsync(lookUp);
                             }
                         }
                     }
-
-                    await _context.SaveChangesAsync();
                 }
                 return true;
             }
@@ -130,11 +118,10 @@ public class ProductService
         {
             try
             {
-                var product = await _context.Products.FirstOrDefaultAsync(x => productId == x.Id);
+                var product = await _productRepo.GetAsync(x => x.Id == productId);
                 if (product != null)
                 {
-                    _context.Products.Remove(product);
-                    await _context.SaveChangesAsync();
+                    await _productRepo.DeleteAsync(product);
                     return true;
                 }
             }
@@ -142,7 +129,6 @@ public class ProductService
             {
                 return false;
             }
-
         }
         return false;
     }
@@ -151,10 +137,10 @@ public class ProductService
     {
         try
         {
-            ProductModel _product = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId);
+            ProductModel _product = await _productRepo.GetAsync(x => x.Id == productId);
             if (_product != null)
             {
-                var lookUp = await _context.ProductCategories.Where(x => x.productId == _product.Id).ToListAsync();
+                var lookUp = await _productCategoryRepo.GetAllAsync(x => x.productId == productId);
                 List<CategoryModel> _allCategories = await _categoryService.GetAllCategoriesAsync();
                 var _categories = new List<CategoryModel>();
 
@@ -173,11 +159,11 @@ public class ProductService
                 _product.Categories = _categories;
                 return _product;
             }
-            return null;
+            return null!;
         }
         catch
         {
-            return null;
+            return null!;
         }
 
     }
@@ -185,7 +171,7 @@ public class ProductService
     public async Task<List<ProductModel>> GetProducts(int quantity)
     {
         List<ProductModel> _products = new List<ProductModel>();
-        foreach (var productEntity in await _context.Products.Include(x => x.Categories).Take(quantity).ToListAsync())
+        foreach (var productEntity in await _productRepo.GetAllAsync(quantity))
         {
             var productModel = new ProductModel
             {
@@ -210,13 +196,13 @@ public class ProductService
 
 
         List<ProductModel> _products = new List<ProductModel>();
-        foreach (var productEntity in await _context.Products.ToListAsync())
+        foreach (var productEntity in await _productRepo.GetAllAsync())
         {
-            var lookUp = await _context.ProductCategories.Where(x => x.productId == productEntity.Id).ToListAsync();
+            var lookUp = await _productCategoryRepo.GetAllAsync(x => x.productId == productEntity.Id);
             var _categories = new List<CategoryModel>();
             foreach (var entry in lookUp)
             {
-                CategoryModel category = await _context.Categories.Where(x => x.Id == entry.categoryId).FirstOrDefaultAsync();
+                CategoryModel category = await _categoryService.GetCategoryById(entry.categoryId);
                 category.isActive = true;
                 _categories.Add(category);
             }

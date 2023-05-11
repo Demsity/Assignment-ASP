@@ -1,23 +1,26 @@
-﻿using Assignment_ASP.Context;
+﻿using Assignment_ASP.Helpers.Repositories;
 using Assignment_ASP.Models;
-using Assignment_ASP.Models.Entitys;
-using Microsoft.EntityFrameworkCore;
 
 namespace Assignment_ASP.Helpers.Services;
 
 public class CategoryService
 {
-    private readonly DataContext _context;
+    private readonly CategoryRepository _categoryRepo;
 
-    public CategoryService(DataContext context)
+    public CategoryService(CategoryRepository categoryRepo)
     {
-        _context = context;
+        _categoryRepo = categoryRepo;
+    }
+
+    public async Task<CategoryModel> GetCategoryById(int id)
+    {
+        return await _categoryRepo.GetAsync(x => x.Id == id);
     }
 
     public async Task<List<CategoryModel>> GetAllCategoriesAsync()
     {
         var _categories = new List<CategoryModel>();
-        foreach (var category in await _context.Categories.ToListAsync())
+        foreach (var category in await _categoryRepo.GetAllAsync())
         {
             _categories.Add(category);
         }
