@@ -1,4 +1,5 @@
 ﻿using Assignment_ASP.Context;
+using Assignment_ASP.Helpers.Repositories;
 using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.Models.Identity;
 using Assignment_ASP.ViewModels.Authentication;
@@ -13,15 +14,17 @@ public class AuthenticationService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly IdentityContext _identityContext;
+    private readonly AdressRepository _adressRepo;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly ImageService _imageService;
 
-    public AuthenticationService(UserManager<AppUser> userManager, IdentityContext identityContext, SignInManager<AppUser> signInManager, ImageService imageService)
+    public AuthenticationService(UserManager<AppUser> userManager, IdentityContext identityContext, SignInManager<AppUser> signInManager, ImageService imageService, AdressRepository adressRepo)
     {
         _userManager = userManager;
         _identityContext = identityContext;
         _signInManager = signInManager;
         _imageService = imageService;
+        _adressRepo = adressRepo;
     }
 
     public async Task<AppUser> CheckIfUserExsistsByEmailAsync(string email)
@@ -39,7 +42,7 @@ public class AuthenticationService
             {
                 try
                 {
-                    var _adress = await _identityContext.AspNetAdresses.Where(x => x.StreetName == viewModel.StreetName && x.PostalCode == viewModel.PostalCode && x.City == viewModel.City).FirstOrDefaultAsync();
+                    var _adress = await _adressRepo.GetAsync(x => x.StreetName == viewModel.StreetName && x.PostalCode == viewModel.PostalCode && x.City == viewModel.City);
                     if (_adress == null)
                     {
                         _adress = new AdressEntity()
@@ -49,8 +52,7 @@ public class AuthenticationService
                             City = viewModel.City,
                         };
 
-                        await _identityContext.AspNetAdresses.AddAsync(_adress);
-                        _identityContext.SaveChanges();
+                        _adress = await _adressRepo.AddAsync(_adress);
                     }
 
                     if (!await _userManager.Users.AnyAsync())
@@ -133,7 +135,7 @@ public class AuthenticationService
         {
             try
             {
-                var _adress = await _identityContext.AspNetAdresses.Where(x => x.StreetName == viewModel.StreetName && x.PostalCode == viewModel.PostalCode && x.City == viewModel.City).FirstOrDefaultAsync();
+                var _adress = await _adressRepo.GetAsync(x => x.StreetName == viewModel.StreetName && x.PostalCode == viewModel.PostalCode && x.City == viewModel.City);
                 if (_adress == null)
                 {
                     _adress = new AdressEntity()
@@ -143,8 +145,7 @@ public class AuthenticationService
                         City = viewModel.City,
                     };
 
-                    await _identityContext.AspNetAdresses.AddAsync(_adress);
-                    _identityContext.SaveChanges();
+                    _adress = await _adressRepo.AddAsync(_adress);
                 }
 
                 if (viewModel.IsAdmin)
