@@ -7,6 +7,13 @@
     {
         CurrentPage = Model.Name.ToUpper()
     };
+
+    ProductDisplayModel related = new()
+    {
+        Title = "Related Products",
+        GetAll = false,
+        NumberOfProducts = 4
+    };
 }
 
 <partial name="../Partials/_Breadcrumbs.cshtml" model="breadCrumbs" />
@@ -117,48 +124,4 @@
 </section>
 
 <!-- Related Products section -->
-<section class="__related-products-section container">
-    <h2 class="__related-title">Related Products</h2>
-    <div class="__related-products-wrapper">
-        <div class="__product-card">
-            <img class="__product-card-img" src="" alt="">
-            <div class="__product-card-info">
-                <div class="__info-text">
-                    <p class="__info-title">Apple Watch Series</p>
-                    <p class="__info-price">$30.00</p>
-                </div>
-                <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-            </div>
-        </div>
-        <div class="__product-card">
-            <img class="__product-card-img" src="" alt="">
-            <div class="__product-card-info">
-                <div class="__info-text">
-                    <p class="__info-title">Apple Watch Series</p>
-                    <p class="__info-price">$30.00</p>
-                </div>
-                <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-            </div>
-        </div>
-        <div class="__product-card">
-            <img class="__product-card-img" src="" alt="">
-            <div class="__product-card-info">
-                <div class="__info-text">
-                    <p class="__info-title">Apple Watch Series</p>
-                    <p class="__info-price">$30.00</p>
-                </div>
-                <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-            </div>
-        </div>
-        <div class="__product-card">
-            <img class="__product-card-img" src="" alt="">
-            <div class="__product-card-info">
-                <div class="__info-text">
-                    <p class="__info-title">Apple Watch Series</p>
-                    <p class="__info-price">$30.00</p>
-                </div>
-                <button class="__info-button"><i class="fa-light fa-cart-plus"></i></button>
-            </div>
-        </div>
-    </div>
-</section>
+<partial model=related name="../partials/_ProductDisplaySection.cshtml" />

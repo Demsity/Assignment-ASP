@@ -21,6 +21,7 @@ public class CreateProductViewModel
     public decimal Price { get; set; }
 
     [Required(ErrorMessage = "Please enter a rating")]
+    [Range(1,5, ErrorMessage = "Rating must be between 1 and 5")]
     [Display(Name = "Rating * (Not an option in production)")]
     public int Rating { get; set; }
 
