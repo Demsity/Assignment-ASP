@@ -73,7 +73,7 @@ public class ProductService
                     _product.TotalRatings = model.TotalRatings;
                     _product.StockTotal = model.StockTotal;
 
-                    await _productRepo.UpdateAsync(_product);
+                    _product = await _productRepo.UpdateAsync(_product);
                 }
 
 
@@ -82,7 +82,7 @@ public class ProductService
                 {
                     foreach (var category in model.Categories)
                     {
-                        var lookUp = await _productCategoryRepo.GetAsync(x => x.productId == _product.Id);
+                        var lookUp = await _productCategoryRepo.GetAsync(x => x.productId == _product.Id && x.categoryId == category.Id);
                         var _category = new ProductCategoryEntity
                         {
                             productId = model.Id,
@@ -95,8 +95,7 @@ public class ProductService
                             {
                                 await _productCategoryRepo.AddAsync(_category);
                             }
-                        }
-                        else
+                        } else
                         {
                             if (lookUp != null)
                             {
