@@ -47,6 +47,7 @@ builder.Services.ConfigureApplicationCookie(x =>
 {
     x.LoginPath = "/login";
     x.LogoutPath = "/";
+    x.AccessDeniedPath = "/denied";
 });
 
 
