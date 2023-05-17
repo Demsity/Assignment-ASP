@@ -1,5 +1,6 @@
 ﻿using Assignment_ASP.Models.Entitys;
 using Assignment_ASP.Models.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace Assignment_ASP.ViewModels.Authentication;
@@ -56,9 +57,13 @@ public class UserRegisterViewModel
     public IFormFile? ImageFile { get; set; }
 
     [Display(Name = "I have read an accepts the terms and agreements  *")]
-    [Required(ErrorMessage = "You must agree the terms and agreements")]
-    [Range(typeof(bool), "true", "true", ErrorMessage = "You must agree to the terms and agreements")]
-    public bool AgreeToTerms { get; set; } = false;
+    [Compare("AgreedToTerms", ErrorMessage = "You have to agree with 'Terms and agreements' to register")]
+    public bool AgreeToTerms { get; set; }
+
+    [HiddenInput]
+    public bool AgreedToTerms { get; set; } = true;
+
+
 
     public static implicit operator AppUser(UserRegisterViewModel viewModel)
     {
